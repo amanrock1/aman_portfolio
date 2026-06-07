@@ -1,9 +1,9 @@
 import ResumeView from "./resume-view";
 
 export const metadata = {
-  title: "Résumé | Naresh Khatri",
+  title: "Résumé | Aman Kumar Prabhat",
   description:
-    "Résumé of Naresh Khatri — Senior Full-Stack Engineer. View online or download the PDF.",
+    "Résumé of Aman Kumar Prabhat — CS Student & Developer. View online or download the PDF.",
 };
 
 export default function ResumePage() {
