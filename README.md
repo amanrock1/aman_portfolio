@@ -6,7 +6,7 @@ A jaw-dropping developer portfolio packed with interactive 3D animations, butter
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/amanrock1/aman_portfolio)
 
-![Portfolio Preview](https://github.com/amanrock1/aman_portfolio/blob/main/public/assets/projects-screenshots/portfolio/landing.png?raw=true)
+
 
 ## ✨ Features
 
