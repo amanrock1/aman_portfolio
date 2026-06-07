@@ -1,0 +1,19 @@
+Add this Coding Arena section into my existing React/Vite portfolio.
+
+Tasks:
+1. Copy `src/components/CodingArena/CodingArena.jsx` and `CodingArena.css` into my project.
+2. Import and render `<CodingArena />` in the correct place in my portfolio page.
+3. Copy `api/coding-stats.js` to the project root `api` folder if I am deploying on Vercel.
+4. Replace these placeholders with my actual handles:
+   - YOUR_LEETCODE_USERNAME
+   - YOUR_CODEFORCES_HANDLE
+   - YOUR_CODECHEF_USERNAME
+5. Make sure the section does not break the existing theme, navbar, layout, or responsiveness.
+6. If my project does not support Vercel API routes, convert `api/coding-stats.js` into the correct backend/API format for my project.
+7. Keep these features:
+   - platform switching
+   - 3D mouse tilt
+   - animated counters
+   - heatmap
+   - progress ring
+   - refresh stats button
