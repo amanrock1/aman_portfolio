@@ -410,11 +410,11 @@ function createCardTexture({
 
   // Box 1: College
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 54px Arial';
-  ctx.fillText('COLLEGE', box1.x + 30, box1.y + 68);
+  ctx.font = '800 46px Arial';
+  ctx.fillText('COLLEGE', box1.x + 30, box1.y + 62);
 
-  ctx.font = '800 44px Arial';
-  wrapText(ctx, collegeName, box1.x + 30, box1.y + 138, box1.w - 150, 52);
+  ctx.font = '800 40px Arial';
+  wrapText(ctx, collegeName, box1.x + 30, box1.y + 130, box1.w - 150, 48);
 
   if (collegeLogoImage) {
     // Draw a subtle border circle behind logo
@@ -435,8 +435,8 @@ function createCardTexture({
 
   // Box 2: Profile photo
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 54px Arial';
-  ctx.fillText(studentName.split(' ')[0], box2.x + 30, box2.y + 68);
+  ctx.font = '800 46px Arial';
+  ctx.fillText(studentName.split(' ')[0], box2.x + 30, box2.y + 65);
 
   if (profileImage) {
     drawImageCover(ctx, profileImage, box2.x + 35, box2.y + 105, box2.w - 70, 405);
@@ -446,46 +446,46 @@ function createCardTexture({
     ctx.fillRect(box2.x + 35, box2.y + 105, box2.w - 70, 405);
   }
 
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.font = '800 36px Arial';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = '800 30px Arial';
   ctx.fillText('Portfolio ID Card', box2.x + 35, box2.y + box2.h - 40);
 
   // Box 3: GPA and semester
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 54px Arial';
-  ctx.fillText('ACADEMICS', box3.x + 30, box3.y + 68);
+  ctx.font = '800 46px Arial';
+  ctx.fillText('ACADEMICS', box3.x + 30, box3.y + 65);
 
-  ctx.font = '800 76px Arial';
+  ctx.font = '800 64px Arial';
   ctx.fillText(gpa, box3.x + 30, box3.y + 175);
 
-  ctx.font = '800 52px Arial';
-  ctx.fillText(semester, box3.x + 30, box3.y + 252);
+  ctx.font = '800 44px Arial';
+  ctx.fillText(semester, box3.x + 30, box3.y + 250);
 
   // Box 4: Skills and projects
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 58px Arial';
+  ctx.font = '800 48px Arial';
   ctx.fillText('SKILLS & PROJECTS', box4.x + 40, box4.y + 75);
 
-  ctx.font = '800 46px Arial';
+  ctx.font = '800 38px Arial';
   ctx.fillText('Skills', box4.x + 40, box4.y + 150);
 
-  ctx.font = '800 42px Arial';
+  ctx.font = '800 34px Arial';
   let skillY = box4.y + 215;
 
   safeSkills.forEach((skill) => {
     ctx.fillText(`• ${skill}`, box4.x + 50, skillY);
-    skillY += 56;
+    skillY += 48;
   });
 
-  ctx.font = '800 46px Arial';
+  ctx.font = '800 38px Arial';
   ctx.fillText('Projects', box4.x + 460, box4.y + 150);
 
-  ctx.font = '800 40px Arial';
+  ctx.font = '800 34px Arial';
   let projectY = box4.y + 215;
 
   safeProjects.forEach((project) => {
-    wrapText(ctx, `• ${project}`, box4.x + 470, projectY, 380, 50);
-    projectY += 105;
+    wrapText(ctx, `• ${project}`, box4.x + 470, projectY, 390, 44);
+    projectY += 80;
   });
 
   // Footer text
