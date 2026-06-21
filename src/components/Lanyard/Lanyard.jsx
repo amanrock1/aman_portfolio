@@ -31,10 +31,10 @@ export default function Lanyard({
   transparent = true,
   collegeName = 'VIT Bhopal University',
   studentName = 'AMAN KUMAR',
-  semester = '3rd Semester',
+  semester = '6th Semester',
   gpa = '8.4 CGPA',
   skills = ['React', 'Python', 'C++', 'AI Tools'],
-  projects = ['Portfolio Website', 'Agricycle', '360 Campus Tour']
+  projects = ['VoxTube', 'VR Campus Tour', 'Argicycle', 'SquadUp', 'Portfolio Website']
 }) {
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < 768
@@ -78,7 +78,7 @@ export default function Lanyard({
           <Lightformer intensity={5}  color="#ddd6fe" position={[-1, -1, 1]}  rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
           <Lightformer intensity={5}  color="#ffffff" position={[1, 1, 1]}    rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
           <Lightformer intensity={18} color="#ffffff" position={[-10, 0, 14]} rotation={[0, Math.PI / 2, Math.PI / 3]} scale={[100, 10, 1]} />
-          <Lightformer intensity={8}  color="#a78bfa" position={[10, 5, 2]}   rotation={[0, -Math.PI / 2, 0]} scale={[50, 10, 1]} />
+          <Lightformer intensity={8}  color="#38bdf8" position={[10, 5, 2]}   rotation={[0, -Math.PI / 2, 0]} scale={[50, 10, 1]} />
         </Environment>
       </Canvas>
     </div>
@@ -360,9 +360,9 @@ function createCardTexture({
   const safeProjects = Array.isArray(projects) ? projects : [];
   // Dark premium gradient background
   const bgGrad = ctx.createLinearGradient(0, 0, canvas.width / 2, canvas.height);
-  bgGrad.addColorStop(0,   '#0f0f1a');
-  bgGrad.addColorStop(0.5, '#141428');
-  bgGrad.addColorStop(1,   '#1a1030');
+  bgGrad.addColorStop(0,   '#020617');
+  bgGrad.addColorStop(0.5, '#070a13');
+  bgGrad.addColorStop(1,   '#0b0f19');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -375,10 +375,10 @@ function createCardTexture({
   ctx.fillStyle = gloss;
   ctx.fillRect(0, 0, canvas.width / 2, canvas.height);
 
-  // Subtle purple accent glow bottom-left
+  // Subtle cyan/sky-blue accent glow bottom-left
   const glow = ctx.createRadialGradient(100, canvas.height - 100, 0, 100, canvas.height - 100, 500);
-  glow.addColorStop(0,   'rgba(139,92,246,0.18)');
-  glow.addColorStop(1,   'rgba(139,92,246,0)');
+  glow.addColorStop(0,   'rgba(56,189,248,0.22)');
+  glow.addColorStop(1,   'rgba(56,189,248,0)');
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, canvas.width / 2, canvas.height);
 
@@ -410,11 +410,11 @@ function createCardTexture({
 
   // Box 1: College
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 46px Arial';
-  ctx.fillText('COLLEGE', box1.x + 30, box1.y + 62);
+  ctx.font = '800 54px Arial';
+  ctx.fillText('COLLEGE', box1.x + 30, box1.y + 68);
 
-  ctx.font = '800 40px Arial';
-  wrapText(ctx, collegeName, box1.x + 30, box1.y + 130, box1.w - 150, 48);
+  ctx.font = '800 44px Arial';
+  wrapText(ctx, collegeName, box1.x + 30, box1.y + 138, box1.w - 150, 52);
 
   if (collegeLogoImage) {
     // Draw a subtle border circle behind logo
@@ -435,8 +435,8 @@ function createCardTexture({
 
   // Box 2: Profile photo
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 46px Arial';
-  ctx.fillText(studentName.split(' ')[0], box2.x + 30, box2.y + 65);
+  ctx.font = '800 54px Arial';
+  ctx.fillText(studentName.split(' ')[0], box2.x + 30, box2.y + 68);
 
   if (profileImage) {
     drawImageCover(ctx, profileImage, box2.x + 35, box2.y + 105, box2.w - 70, 405);
@@ -446,51 +446,51 @@ function createCardTexture({
     ctx.fillRect(box2.x + 35, box2.y + 105, box2.w - 70, 405);
   }
 
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.font = '700 30px Arial';
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = '800 36px Arial';
   ctx.fillText('Portfolio ID Card', box2.x + 35, box2.y + box2.h - 40);
 
   // Box 3: GPA and semester
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 46px Arial';
-  ctx.fillText('ACADEMICS', box3.x + 30, box3.y + 65);
+  ctx.font = '800 54px Arial';
+  ctx.fillText('ACADEMICS', box3.x + 30, box3.y + 68);
 
-  ctx.font = '800 64px Arial';
+  ctx.font = '800 76px Arial';
   ctx.fillText(gpa, box3.x + 30, box3.y + 175);
 
-  ctx.font = '800 44px Arial';
-  ctx.fillText(semester, box3.x + 30, box3.y + 250);
+  ctx.font = '800 52px Arial';
+  ctx.fillText(semester, box3.x + 30, box3.y + 252);
 
   // Box 4: Skills and projects
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 48px Arial';
+  ctx.font = '800 58px Arial';
   ctx.fillText('SKILLS & PROJECTS', box4.x + 40, box4.y + 75);
 
-  ctx.font = '800 38px Arial';
+  ctx.font = '800 46px Arial';
   ctx.fillText('Skills', box4.x + 40, box4.y + 150);
 
-  ctx.font = '700 34px Arial';
+  ctx.font = '800 42px Arial';
   let skillY = box4.y + 215;
 
   safeSkills.forEach((skill) => {
     ctx.fillText(`• ${skill}`, box4.x + 50, skillY);
-    skillY += 48;
+    skillY += 56;
   });
 
-  ctx.font = '800 38px Arial';
+  ctx.font = '800 46px Arial';
   ctx.fillText('Projects', box4.x + 460, box4.y + 150);
 
-  ctx.font = '700 34px Arial';
+  ctx.font = '800 40px Arial';
   let projectY = box4.y + 215;
 
   safeProjects.forEach((project) => {
-    wrapText(ctx, `• ${project}`, box4.x + 470, projectY, 390, 44);
-    projectY += 80;
+    wrapText(ctx, `• ${project}`, box4.x + 470, projectY, 380, 50);
+    projectY += 105;
   });
 
   // Footer text
-  ctx.font = '800 32px Arial';
-  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font = '800 38px Arial';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
   ctx.fillText(`${studentName}  •  DEVELOPER PORTFOLIO`, box4.x, 1360);
 
   // --- DRAW BACK OF THE CARD ---
@@ -575,12 +575,12 @@ function createStrapTexture({ baseImage, logoImage, text }) {
 
 function drawBox(ctx, box) {
   // Glassmorphism box
-  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
   ctx.beginPath();
   ctx.roundRect(box.x, box.y, box.w, box.h, 16);
   ctx.fill();
 
-  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.20)';
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.roundRect(box.x, box.y, box.w, box.h, 16);
