@@ -1,316 +1,546 @@
 import React, { useEffect, useState } from "react";
 import "./CodingArena.css";
 
+/* ────────────────────────────────────────────
+   CONSTANTS
+──────────────────────────────────────────── */
 const USER_LINKS = {
-  leetcode: "https://leetcode.com/leetcode_kumar/",
+  leetcode:   "https://leetcode.com/leetcode_kumar/",
   codeforces: "https://codeforces.com/profile/Amankumar18",
-  codechef: "https://www.codechef.com/users/codechef_kumar",
+  codechef:   "https://www.codechef.com/users/codechef_kumar",
+  github:     "https://github.com/amanrock1",
 };
 
-const fallbackActivity = [0,1,3,2,0,2,4,1,3,2,0,1,4,3,2,1,0,2,3,4,1,0,2,3,1,4,2,0,1,3,2,4,0,1,2,3,4,2,1,0,3,1,2,4,0,2,1,3,2,4,1,0,2,3,4,1,2,0,3,2,1,4,0,2,3,1,4,2,0,1,3,4];
+/* ── Generate 365-day fallback activity objects ── */
+function randomActivity(seed) {
+  const arr = [];
+  const today = new Date();
+  let n = seed;
+  for (let i = 364; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const dateStr = d.toISOString().slice(0, 10);
+    n = (n * 9301 + 49297) % 233280;
+    const level = Math.floor((n / 233280) * 5);
+    let count = 0;
+    if (level === 1) count = 1;
+    else if (level === 2) count = 3;
+    else if (level === 3) count = 5;
+    else if (level === 4) count = 8;
+    arr.push({ date: dateStr, level, count });
+  }
+  return arr;
+}
 
-const FALLBACK_DATA = {
-  totalSolved: 321,
+const PLATFORMS = {
   leetcode: {
     id: "leetcode",
     name: "LeetCode",
-    username: "leetcode_kumar",
-    icon: "⌘",
     mark: "LC",
-    accent: "#f89f1b",
+    icon: "⌘",
+    color: "#f89f1b",
+    username: "leetcode_kumar",
+    tabSub: "Problem solving",
+    focus: "DSA",
     mainValue: "156",
     mainLabel: "Problems Solved",
     progress: 42,
     ringLabel: "Solved Map",
     badge: "156",
-    tabSub: "Problem solving",
-    focus: "DSA",
-    profileText: "View LeetCode →",
-    metrics: [["Easy", "82"], ["Medium", "61"], ["Hard", "13"], ["Rating", "N/A"]],
-    focusItems: [["Current Goal", "200 solved"], ["Strong Area", "Arrays"], ["Next Focus", "DP"], ["Consistency", "Good"]],
-    activity: fallbackActivity,
+    metrics: [
+      { label: "Easy",   value: "82"  },
+      { label: "Medium", value: "61"  },
+      { label: "Hard",   value: "13"  },
+      { label: "Rating", value: "N/A" },
+    ],
+    focusItems: [
+      ["Current Goal", "200 solved"],
+      ["Strong Area",  "Arrays"],
+      ["Next Focus",   "DP"],
+      ["Consistency",  "Good"],
+    ],
+    activity: randomActivity(11),
   },
   codeforces: {
     id: "codeforces",
     name: "Codeforces",
-    username: "Amankumar18",
-    icon: "🏆",
     mark: "CF",
-    accent: "#3b82f6",
+    icon: "🏆",
+    color: "#3b82f6",
+    username: "Amankumar18",
+    tabSub: "Contest rating",
+    focus: "Contests",
     mainValue: "1047",
     mainLabel: "Current Rating",
     progress: 70,
     ringLabel: "Next Rank",
     badge: "1047",
-    tabSub: "Contest rating",
-    focus: "Contests",
-    profileText: "View Codeforces →",
-    metrics: [["Solved", "94"], ["Max Rating", "1112"], ["Rank", "Pupil"], ["Contests", "18"]],
-    focusItems: [["Current Goal", "1200 rating"], ["Strong Area", "Greedy"], ["Next Focus", "Graphs"], ["Contest Mode", "Active"]],
-    activity: fallbackActivity.slice().reverse(),
+    metrics: [
+      { label: "Solved",     value: "94"   },
+      { label: "Max Rating", value: "1112" },
+      { label: "Rank",       value: "Pupil"},
+      { label: "Contests",   value: "18"   },
+    ],
+    focusItems: [
+      ["Current Goal", "1200 rating"],
+      ["Strong Area",  "Greedy"],
+      ["Next Focus",   "Graphs"],
+      ["Contest Mode", "Active"],
+    ],
+    activity: randomActivity(22),
   },
   codechef: {
     id: "codechef",
     name: "CodeChef",
-    username: "codechef_kumar",
-    icon: "★",
     mark: "CC",
-    accent: "#9a6b45",
+    icon: "★",
+    color: "#a87c5a",
+    username: "codechef_kumar",
+    tabSub: "Practice + contests",
+    focus: "Practice",
     mainValue: "2★",
-    mainLabel: "Contest Star Rating",
+    mainLabel: "Star Rating",
     progress: 58,
     ringLabel: "Practice",
     badge: "2★",
-    tabSub: "Practice + contests",
-    focus: "Practice",
-    profileText: "View CodeChef →",
-    metrics: [["Rating", "1420"], ["Solved", "71"], ["Global", "18K"], ["Stars", "2★"]],
-    focusItems: [["Current Goal", "3★"], ["Strong Area", "Math"], ["Next Focus", "Speed"], ["Practice", "Steady"]],
-    activity: fallbackActivity.map((x, i) => (x + i) % 5),
+    metrics: [
+      { label: "Rating",  value: "1420" },
+      { label: "Solved",  value: "71"   },
+      { label: "Global",  value: "18K"  },
+      { label: "Stars",   value: "2★"   },
+    ],
+    focusItems: [
+      ["Current Goal", "3★"],
+      ["Strong Area",  "Math"],
+      ["Next Focus",   "Speed"],
+      ["Practice",     "Steady"],
+    ],
+    activity: randomActivity(33),
+  },
+  github: {
+    id: "github",
+    name: "GitHub",
+    mark: "GH",
+    icon: "◈",
+    color: "#a78bfa",
+    username: "amanrock1",
+    tabSub: "Open source",
+    focus: "Building",
+    mainValue: "32",
+    mainLabel: "Contributions This Year",
+    progress: 60,
+    ringLabel: "Repo Goal",
+    badge: "5 repos",
+    metrics: [
+      { label: "Contribs", value: "32"  },
+      { label: "Repos",    value: "5"   },
+      { label: "Streak",   value: "7d"  },
+      { label: "Top Lang", value: "TS"  },
+    ],
+    focusItems: [],
+    activity: randomActivity(44),
+    topRepos: [
+      { name: "voxtube",        description: "Voxtube is video and audio processing app",                       stars: 0, language: "TypeScript", url: "https://github.com/amanrock1/voxtube"        },
+      { name: "Argicycle",      description: "Web 3 app",                                                       stars: 0, language: "JavaScript", url: "https://github.com/amanrock1/Argicycle"      },
+      { name: "SquadUp",        description: "Social web app",                                                  stars: 0, language: "JavaScript", url: "https://github.com/amanrock1/SquadUp"        },
+      { name: "aman_portfolio", description: "Portfolio website showcasing skills, projects, and achievements.", stars: 0, language: "TypeScript", url: "https://github.com/amanrock1/aman_portfolio" },
+      { name: "amanrock1",      description: "Config files for my GitHub profile.",                             stars: 0, language: "Markdown",   url: "https://github.com/amanrock1/amanrock1"      },
+    ],
   },
 };
 
+const FALLBACK_TOTAL = 321;
+
+/* ────────────────────────────────────────────
+   NORMALIZE API RESPONSE
+──────────────────────────────────────────── */
+function normalizeApiData(api) {
+  if (!api) return { platforms: PLATFORMS, totalSolved: FALLBACK_TOTAL };
+
+  const lc = {
+    ...PLATFORMS.leetcode,
+    mainValue: String(api.leetcode?.solved ?? PLATFORMS.leetcode.mainValue),
+    badge:     String(api.leetcode?.solved ?? PLATFORMS.leetcode.badge),
+    metrics: [
+      { label: "Easy",   value: String(api.leetcode?.easy   ?? 0) },
+      { label: "Medium", value: String(api.leetcode?.medium ?? 0) },
+      { label: "Hard",   value: String(api.leetcode?.hard   ?? 0) },
+      { label: "Rating", value: String(api.leetcode?.rating ?? "N/A") },
+    ],
+    activity: api.leetcode?.activity || randomActivity(11),
+  };
+
+  const cf = {
+    ...PLATFORMS.codeforces,
+    mainValue: String(api.codeforces?.rating ?? "N/A"),
+    badge:     String(api.codeforces?.rating ?? "N/A"),
+    metrics: [
+      { label: "Solved",     value: String(api.codeforces?.solved    ?? 0) },
+      { label: "Max Rating", value: String(api.codeforces?.maxRating ?? "N/A") },
+      { label: "Rank",       value: String(api.codeforces?.rank      ?? "Unrated") },
+      { label: "Contests",   value: String(api.codeforces?.contests  ?? 0) },
+    ],
+    activity: api.codeforces?.activity || randomActivity(22),
+  };
+
+  const cc = {
+    ...PLATFORMS.codechef,
+    mainValue: String(api.codechef?.stars ?? api.codechef?.rating ?? "N/A"),
+    badge:     String(api.codechef?.stars ?? "N/A"),
+    metrics: [
+      { label: "Rating",  value: String(api.codechef?.rating     ?? "N/A") },
+      { label: "Solved",  value: String(api.codechef?.solved     ?? "N/A") },
+      { label: "Global",  value: String(api.codechef?.globalRank ?? "N/A") },
+      { label: "Stars",   value: String(api.codechef?.stars      ?? "N/A") },
+    ],
+    activity: api.codechef?.activity || randomActivity(33),
+  };
+
+  const gh = api.github ? {
+    ...PLATFORMS.github,
+    mainValue: String(api.github.commits ?? PLATFORMS.github.mainValue),
+    mainLabel: "Contributions This Year",
+    badge:     `${api.github.repos ?? 5} repos`,
+    progress:  Math.min(100, Math.round(((api.github.repos ?? 0) / 30) * 100)),
+    metrics: [
+      { label: "Contribs", value: String(api.github.commits ?? 0) },
+      { label: "Repos",    value: String(api.github.repos   ?? 0) },
+      { label: "Streak",   value: `${api.github.streak ?? 0}d`    },
+      { label: "Top Lang", value: String(api.github.topLang ?? "N/A").slice(0, 6) },
+    ],
+    activity: api.github.activity || randomActivity(44),
+    topRepos: api.github.topRepos || PLATFORMS.github.topRepos,
+  } : PLATFORMS.github;
+
+  const totalSolved =
+    Number(api.leetcode?.solved   || 0) +
+    Number(api.codeforces?.solved || 0) +
+    Number(api.codechef?.solved   || 0);
+
+  return {
+    platforms: { leetcode: lc, codeforces: cf, codechef: cc, github: gh },
+    totalSolved: totalSolved || FALLBACK_TOTAL,
+  };
+}
+
+/* ────────────────────────────────────────────
+   ANIMATED NUMBER
+──────────────────────────────────────────── */
 function AnimatedNumber({ value }) {
-  const [displayValue, setDisplayValue] = useState("0");
+  const [display, setDisplay] = useState("0");
 
   useEffect(() => {
-    const stringValue = String(value);
-    if (!/^\d+$/.test(stringValue)) {
-      setDisplayValue(stringValue);
-      return;
+    const str = String(value);
+    if (!/^\d+$/.test(str)) { setDisplay(str); return; }
+    const target = Number(str);
+    const duration = 750;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      setDisplay(String(Math.round(target * e)));
+      if (p < 1) requestAnimationFrame(tick);
     }
-
-    const target = Number(stringValue);
-    const duration = 700;
-    const startTime = performance.now();
-
-    function updateNumber(currentTime) {
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(String(Math.round(target * easedProgress)));
-      if (progress < 1) requestAnimationFrame(updateNumber);
-    }
-
-    requestAnimationFrame(updateNumber);
+    requestAnimationFrame(tick);
   }, [value]);
 
-  return <>{displayValue}</>;
+  return <>{display}</>;
 }
 
-function randomActivity(seed) {
-  const arr = [];
-  let n = seed;
-  for (let i = 0; i < 72; i++) {
-    n = (n * 9301 + 49297) % 233280;
-    arr.push(Math.floor((n / 233280) * 5));
-  }
-  return arr;
+/* ────────────────────────────────────────────
+   RING GAUGE
+──────────────────────────────────────────── */
+function RingGauge({ progress, color, label }) {
+  const r    = 70;
+  const circ = 2 * Math.PI * r;
+  return (
+    <div className="ca-card-ring ca-card">
+      <div className="ca-ring-wrap">
+        <svg className="ca-ring-svg" viewBox="0 0 160 160">
+          <circle className="ca-ring-track" cx="80" cy="80" r={r} />
+          <circle
+            className="ca-ring-fill"
+            cx="80" cy="80" r={r}
+            style={{
+              strokeDasharray: circ,
+              strokeDashoffset: circ - (circ * progress) / 100,
+              stroke: color,
+              filter: `drop-shadow(0 0 8px ${color})`,
+              transition: "stroke-dashoffset 0.8s cubic-bezier(0.22,1,0.36,1), stroke 0.4s ease",
+            }}
+          />
+        </svg>
+        <div className="ca-ring-center">
+          <span className="ca-ring-pct">{progress}%</span>
+          <span className="ca-ring-hint">progress</span>
+        </div>
+      </div>
+      <div className="ca-ring-label">
+        <strong>{label}</strong>
+        <span>Goal tracker</span>
+      </div>
+    </div>
+  );
 }
 
-function normalizeApiData(apiData) {
-  if (!apiData) return FALLBACK_DATA;
-
-  const leetcode = {
-    ...FALLBACK_DATA.leetcode,
-    ...apiData.leetcode,
-    mainValue: String(apiData.leetcode?.solved ?? FALLBACK_DATA.leetcode.mainValue),
-    badge: String(apiData.leetcode?.solved ?? FALLBACK_DATA.leetcode.badge),
-    metrics: [
-      ["Easy", String(apiData.leetcode?.easy ?? 0)],
-      ["Medium", String(apiData.leetcode?.medium ?? 0)],
-      ["Hard", String(apiData.leetcode?.hard ?? 0)],
-      ["Rating", String(apiData.leetcode?.rating ?? "N/A")],
-    ],
-    activity: apiData.leetcode?.activity || randomActivity(11),
-  };
-
-  const codeforces = {
-    ...FALLBACK_DATA.codeforces,
-    ...apiData.codeforces,
-    mainValue: String(apiData.codeforces?.rating ?? "N/A"),
-    badge: String(apiData.codeforces?.rating ?? "N/A"),
-    metrics: [
-      ["Solved", String(apiData.codeforces?.solved ?? 0)],
-      ["Max Rating", String(apiData.codeforces?.maxRating ?? "N/A")],
-      ["Rank", String(apiData.codeforces?.rank ?? "Unrated")],
-      ["Contests", String(apiData.codeforces?.contests ?? 0)],
-    ],
-    activity: apiData.codeforces?.activity || randomActivity(22),
-  };
-
-  const codechef = {
-    ...FALLBACK_DATA.codechef,
-    ...apiData.codechef,
-    mainValue: String(apiData.codechef?.stars ?? apiData.codechef?.rating ?? "N/A"),
-    badge: String(apiData.codechef?.stars ?? "N/A"),
-    metrics: [
-      ["Rating", String(apiData.codechef?.rating ?? "N/A")],
-      ["Solved", String(apiData.codechef?.solved ?? "N/A")],
-      ["Global", String(apiData.codechef?.globalRank ?? "N/A")],
-      ["Stars", String(apiData.codechef?.stars ?? "N/A")],
-    ],
-    activity: apiData.codechef?.activity || randomActivity(33),
-  };
-
-  const totalSolved = Number(apiData.leetcode?.solved || 0) + Number(apiData.codeforces?.solved || 0) + Number(apiData.codechef?.solved || 0);
-  return { totalSolved: totalSolved || FALLBACK_DATA.totalSolved, leetcode, codeforces, codechef };
+/* ────────────────────────────────────────────
+   TERMINAL PREFIX
+──────────────────────────────────────────── */
+function TermPrefix({ sym }) {
+  const cls =
+    sym === "$" ? "ca-t-prompt" :
+    sym === "✓" ? "ca-t-ok"    :
+    sym === "!" ? "ca-t-warn"  :
+    sym === "→" ? "ca-t-arrow" : "ca-t-prompt";
+  return <span className={cls}>{sym}</span>;
 }
 
+/* ────────────────────────────────────────────
+   FOCUS / TOP REPOS PANEL
+──────────────────────────────────────────── */
+function FocusPanel({ platform }) {
+  const isGitHub = platform.id === "github";
+
+  return (
+    <div className="ca-card ca-card-focus">
+      <h4>{isGitHub ? "Top Repositories" : `Current Focus · ${platform.focus}`}</h4>
+
+      {isGitHub ? (
+        <div className="ca-repo-list">
+          {(platform.topRepos || []).map((repo) => (
+            <a
+              key={repo.name}
+              href={repo.url}
+              target="_blank"
+              rel="noreferrer"
+              className="ca-repo-item"
+            >
+              <div className="ca-repo-info">
+                <span className="ca-repo-name">{repo.name}</span>
+                <span className="ca-repo-desc">{repo.description}</span>
+              </div>
+              <div className="ca-repo-meta">
+                {repo.language && <span className="ca-repo-lang">{repo.language}</span>}
+                <span className="ca-repo-stars">★ {repo.stars}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="ca-focus-list">
+          {platform.focusItems.map(([k, v]) => (
+            <div key={k} className="ca-focus-item">
+              <span className="ca-focus-key">{k}</span>
+              <span className="ca-focus-val">{v}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────
+   MAIN COMPONENT
+──────────────────────────────────────────── */
 export default function CodingArena() {
-  const [stats, setStats] = useState(FALLBACK_DATA);
-  const [activePlatform, setActivePlatform] = useState("leetcode");
-  const [loading, setLoading] = useState(false);
+  const [data, setData]               = useState({ platforms: PLATFORMS, totalSolved: FALLBACK_TOTAL });
+  const [activeId, setActiveId]       = useState("leetcode");
+  const [loading, setLoading]         = useState(false);
   const [lastUpdated, setLastUpdated] = useState("");
-  const [terminalLines, setTerminalLines] = useState([
-    ["$", "fetching-platform-stats..."],
-    ["✓", "LeetCode ready"],
-    ["✓", "Codeforces ready"],
-    ["!", "CodeChef may use fallback data"],
+  const [termLines, setTermLines]     = useState([
+    ["$",  "fetch --platform-stats"],
+    ["✓",  "LeetCode   › ready"],
+    ["✓",  "Codeforces › ready"],
+    ["!",  "CodeChef   › may use fallback"],
+    ["✓",  "GitHub     › ready"],
   ]);
 
-  const activeData = stats[activePlatform];
-  const platforms = [stats.leetcode, stats.codeforces, stats.codechef];
+  const active = data.platforms[activeId];
 
   async function fetchStats() {
     try {
       setLoading(true);
-      setTerminalLines([["$", "fetch /api/coding-stats"], ["→", "connecting to platforms..."]]);
-      const response = await fetch("/api/coding-stats");
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Could not fetch stats");
-      setStats(normalizeApiData(data));
+      setTermLines([["$", "GET /api/coding-stats"], ["→", "connecting to platforms..."]]);
+      const res  = await fetch("/api/coding-stats");
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Fetch failed");
+      setData(normalizeApiData(json));
       setLastUpdated(new Date().toLocaleTimeString());
-      setTerminalLines([["✓", "live stats loaded"], ["✓", "metrics normalized"], ["✓", "dashboard updated"]]);
-    } catch (error) {
-      console.error(error);
-      setStats(FALLBACK_DATA);
-      setTerminalLines([["!", "using fallback preview data"], ["→", "check /api/coding-stats route"], ["→", "replace usernames in api file"]]);
+      setTermLines([
+        ["✓", "live stats fetched"],
+        ["✓", "github contributions synced"],
+        ["✓", "dashboard updated"],
+      ]);
+    } catch (err) {
+      console.error(err);
+      setData({ platforms: PLATFORMS, totalSolved: FALLBACK_TOTAL });
+      setTermLines([
+        ["!", "using preview / fallback data"],
+        ["→", "check /api/coding-stats route"],
+        ["→", "update usernames in api file"],
+      ]);
     } finally {
       setLoading(false);
     }
   }
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
+  useEffect(() => { fetchStats(); }, []);
 
-  useEffect(() => {
-    const section = document.querySelector(".coding-arena-section");
-    function handleMouseMove(event) {
-      if (!section) return;
-      section.style.setProperty("--mx", event.clientX + "px");
-      section.style.setProperty("--my", event.clientY + "px");
-    }
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  function handleCardMouseMove(event) {
-    const card = event.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -7;
-    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 7;
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    card.style.setProperty("--card-x", `${(x / rect.width) * 100}%`);
-    card.style.setProperty("--card-y", `${(y / rect.height) * 100}%`);
-  }
-
-  function handleCardMouseLeave(event) {
-    const card = event.currentTarget;
-    card.style.transform = "rotateX(0deg) rotateY(0deg)";
-    card.style.setProperty("--card-x", "50%");
-    card.style.setProperty("--card-y", "50%");
-  }
-
-  function selectPlatform(platformId) {
-    const platform = stats[platformId];
-    setActivePlatform(platformId);
-    setTerminalLines([
-      ["$", `switch-platform --to ${platform.name.toLowerCase()}`],
-      ["✓", `loaded ${platform.metrics.length} metrics`],
-      ["✓", "rendered activity heatmap"],
-      ["→", `current focus: ${platform.focus}`],
+  function switchTo(id) {
+    setActiveId(id);
+    const p = data.platforms[id];
+    setTermLines([
+      ["$",  `switch --platform ${p.name.toLowerCase()}`],
+      ["✓",  `${p.metrics.length} metrics loaded`],
+      ["→",  `focus: ${p.focus}`],
     ]);
   }
 
   return (
-    <section className="coding-arena-section" id="coding-arena">
-      <div className="coding-noise"></div>
-      <div className="coding-particle particle-one"></div>
-      <div className="coding-particle particle-two"></div>
-      <div className="coding-particle particle-three"></div>
-      <div className="coding-particle particle-four"></div>
-      <div className="coding-particle particle-five"></div>
-      <div className="coding-particle particle-six"></div>
+    <section className="ca-section" id="coding-arena" style={{ "--active-color": active.color }}>
+      <div className="ca-ambient" />
 
-      <div className="coding-arena-content">
-        <div className="coding-arena-heading">
-          <div className="coding-eyebrow"><span className="coding-pulse-dot"></span>Interactive Live Coding Dashboard</div>
-          <h2>Competitive Coding Arena</h2>
-          <p>A live interactive stats section showing my DSA journey, contest progress, solved problems and platform ratings.</p>
+      <div className="ca-content">
+        {/* ── HEADER ── */}
+        <div className="ca-header">
+          <div className="ca-eyebrow">
+            <span className="ca-live-dot" />
+            <span className="ca-eyebrow-line" />
+            Real-time stats
+          </div>
+          <h2 className="ca-title">
+            Competitive<br />
+            <em>Coding</em> Arena
+          </h2>
+          <p className="ca-subtitle">
+            DSA progress, contest ratings, and problem-solving statistics — live across all platforms.
+          </p>
         </div>
 
-        <div className="coding-dashboard">
-          <aside className="coding-left-panel">
-            <div className="coding-panel-glow"></div>
-            <div className="coding-profile-block">
-              <div className="coding-avatar">A</div>
-              <div><h3>Aman Kumar</h3><p>Problem solving • DSA • Contests</p></div>
+        {/* ── PLATFORM SWITCHER ── */}
+        <div className="ca-switcher">
+          {Object.values(data.platforms).map((p) => (
+            <button
+              key={p.id}
+              className={`ca-sw-btn${activeId === p.id ? " active" : ""}`}
+              style={{ "--p-color": p.color }}
+              onClick={() => switchTo(p.id)}
+            >
+              <span className="ca-sw-mark">{p.mark}</span>
+              <span className="ca-sw-name">{p.name}</span>
+              <span className="ca-sw-badge">{p.badge}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* ── MAIN GRID ── */}
+        <div className="ca-grid">
+
+          {/* HERO CARD */}
+          <div className="ca-card ca-card-hero">
+            <div className="ca-hero-top">
+              <div className="ca-platform-identity">
+                <div className="ca-platform-icon-wrap">
+                  {active.icon}
+                </div>
+                <div className="ca-platform-name-block">
+                  <h3>{active.name}</h3>
+                  <p>@{active.username}</p>
+                </div>
+              </div>
+              <div className="ca-status-pill">
+                <span className="ca-live-dot" />
+                {loading ? "SYNCING" : "LIVE"}
+              </div>
             </div>
 
-            <div className="coding-platform-tabs">
-              {platforms.map((platform) => (
-                <button key={platform.id} className={activePlatform === platform.id ? "coding-tab active" : "coding-tab"} style={{ "--platform": platform.accent }} onClick={() => selectPlatform(platform.id)}>
-                  <div><strong>{platform.name}</strong><span>{platform.tabSub}</span></div>
-                  <div className="coding-badge">{platform.badge}</div>
-                </button>
+            <div className="ca-big-num-row">
+              <div className="ca-big-num" style={{ color: active.color }}>
+                <AnimatedNumber value={active.mainValue} />
+              </div>
+              <div className="ca-big-num-meta">
+                <div className="ca-big-num-label">{active.mainLabel}</div>
+                <a
+                  href={USER_LINKS[active.id]}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ca-view-link"
+                  style={{ color: active.color }}
+                >
+                  View Profile
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* RING GAUGE */}
+          <RingGauge
+            progress={active.progress}
+            color={active.color}
+            label={active.ringLabel}
+          />
+
+          {/* METRICS STRIP */}
+          <div className="ca-card ca-card-metrics">
+            {active.metrics.map((m) => (
+              <div className="ca-metric" key={m.label}>
+                <div className="ca-metric-label">{m.label}</div>
+                <div className="ca-metric-value">
+                  <AnimatedNumber value={m.value} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+
+
+
+        </div>
+
+        {/* ── BOTTOM ROW ── */}
+        <div className="ca-bottom-row">
+          {/* FOCUS / TOP REPOS */}
+          <FocusPanel platform={active} />
+
+          <div className="ca-card ca-card-total">
+            <div className="ca-total-label">Total problems solved</div>
+            <div className="ca-total-num">
+              <AnimatedNumber value={data.totalSolved} />+
+            </div>
+            <div className="ca-total-sub">across LeetCode · Codeforces · CodeChef</div>
+          </div>
+
+          <div className="ca-card ca-card-terminal">
+            <div className="ca-term-bar">
+              <div className="ca-term-dots"><span /><span /><span /></div>
+              <span className="ca-term-title">coding-stats — zsh</span>
+            </div>
+            <div className="ca-term-body">
+              {termLines.map(([sym, txt], i) => (
+                <div key={i}><TermPrefix sym={sym} /> {txt}</div>
               ))}
             </div>
+          </div>
+        </div>
 
-            <div className="coding-total-card"><p>Total solved across platforms</p><h3><AnimatedNumber value={stats.totalSolved} />+</h3></div>
-
-            <div className="coding-terminal">
-              <div className="coding-terminal-top"><span></span><span></span><span></span></div>
-              <div className="coding-terminal-body">
-                {terminalLines.map((line, index) => <div key={index}><span>{line[0]}</span> {line[1]}</div>)}
-              </div>
-            </div>
-          </aside>
-
-          <main className="coding-right-panel">
-            <div className="coding-panel-glow"></div>
-            <div className="coding-main-card" style={{ "--accent": activeData.accent }} onMouseMove={handleCardMouseMove} onMouseLeave={handleCardMouseLeave}>
-              <div className="coding-watermark">{activeData.mark}</div>
-              <div className="coding-main-card-content">
-                <div className="coding-main-top">
-                  <div className="coding-platform-name"><div className="coding-platform-logo">{activeData.icon}</div><div><h3>{activeData.name}</h3><p>@{activeData.username}</p></div></div>
-                  <div className="coding-live-badge"><span className="coding-pulse-dot"></span>{loading ? "Updating" : "Auto Updating"}</div>
-                </div>
-
-                <div className="coding-hero-stats">
-                  <div><div className="coding-big-number"><AnimatedNumber value={activeData.mainValue} /></div><div className="coding-big-label">{activeData.mainLabel}</div></div>
-                  <div className="coding-ring" style={{ "--progress": activeData.progress }}><div className="coding-ring-text"><strong>{activeData.progress}%</strong><span>{activeData.ringLabel}</span></div></div>
-                </div>
-
-                <div className="coding-metrics">
-                  {activeData.metrics.map((metric) => <div className="coding-metric" key={metric[0]}><span>{metric[0]}</span><strong>{metric[1]}</strong></div>)}
-                </div>
-
-                <div className="coding-lower-grid">
-                  <div className="coding-heatmap-panel"><h4>Activity Heatmap<span>hover cells</span></h4><div className="coding-heatmap">{activeData.activity.map((level, index) => <span key={index} className={`coding-cell level-${level}`} title={`${level} submissions`}></span>)}</div></div>
-                  <div className="coding-rank-panel"><h4>Current Focus<span>{activeData.focus}</span></h4><div className="coding-rank-list">{activeData.focusItems.map((item) => <div className="coding-rank-item" key={item[0]}><span>{item[0]}</span><strong>{item[1]}</strong></div>)}</div></div>
-                </div>
-
-                <div className="coding-action-row">
-                  <a href={USER_LINKS[activeData.id]} target="_blank" rel="noreferrer" className="coding-action-btn">{activeData.profileText}</a>
-                  <button className="coding-action-btn ghost" onClick={fetchStats}>{loading ? "Refreshing..." : "Refresh Stats"}</button>
-                </div>
-                {lastUpdated && <p className="coding-updated-text">Last updated: {lastUpdated}</p>}
-              </div>
-            </div>
-          </main>
+        {/* ── REFRESH ── */}
+        <div className="ca-refresh-row">
+          {lastUpdated && <span className="ca-updated-text">Last synced {lastUpdated}</span>}
+          <button
+            className={`ca-refresh-btn${loading ? " spinning" : ""}`}
+            onClick={fetchStats}
+            disabled={loading}
+          >
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M14 8A6 6 0 1 1 8 2" strokeLinecap="round"/>
+              <path d="M8 2l2-2M8 2l2 2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            {loading ? "Syncing…" : "Refresh Stats"}
+          </button>
         </div>
       </div>
     </section>

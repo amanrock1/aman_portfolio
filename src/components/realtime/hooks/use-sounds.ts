@@ -97,11 +97,11 @@ export const useSounds = () => {
   }, [getContext]);
 
   const playPressSound = useCallback(() => {
-    playSoundBuffer(pressBufferRef.current);
+    // playSoundBuffer(pressBufferRef.current);
   }, [playSoundBuffer]);
 
   const playReleaseSound = useCallback(() => {
-    playSoundBuffer(releaseBufferRef.current);
+    // playSoundBuffer(releaseBufferRef.current);
   }, [playSoundBuffer]);
 
   // Send: Clear, slightly higher pitch, quick

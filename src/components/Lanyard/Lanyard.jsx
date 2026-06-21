@@ -57,7 +57,9 @@ export default function Lanyard({
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }
       >
-        <ambientLight intensity={Math.PI} />
+        <ambientLight intensity={Math.PI * 0.6} />
+        <directionalLight position={[5, 5, 5]} intensity={2.5} />
+        <pointLight position={[-4, 3, 3]} intensity={6} color="#c8b8ff" />
 
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band
@@ -72,34 +74,11 @@ export default function Lanyard({
         </Physics>
 
         <Environment blur={0.75}>
-          <Lightformer
-            intensity={2}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={10}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
+          <Lightformer intensity={4}  color="#ffffff" position={[0, -1, 5]}   rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+          <Lightformer intensity={5}  color="#ddd6fe" position={[-1, -1, 1]}  rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+          <Lightformer intensity={5}  color="#ffffff" position={[1, 1, 1]}    rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
+          <Lightformer intensity={18} color="#ffffff" position={[-10, 0, 14]} rotation={[0, Math.PI / 2, Math.PI / 3]} scale={[100, 10, 1]} />
+          <Lightformer intensity={8}  color="#a78bfa" position={[10, 5, 2]}   rotation={[0, -Math.PI / 2, 0]} scale={[50, 10, 1]} />
         </Environment>
       </Canvas>
     </div>
@@ -323,10 +302,12 @@ function Band({
               <meshPhysicalMaterial
                 map={cardTexture}
                 map-anisotropy={16}
-                clearcoat={isMobile ? 0 : 0.6}
-                clearcoatRoughness={0.2}
-                roughness={0.65}
-                metalness={0.15}
+                clearcoat={isMobile ? 0.4 : 1.0}
+                clearcoatRoughness={0.05}
+                roughness={0.18}
+                metalness={0.08}
+                reflectivity={0.9}
+                envMapIntensity={1.8}
                 side={THREE.DoubleSide}
               />
             </mesh>
@@ -377,12 +358,33 @@ function createCardTexture({
   // Safety guards
   const safeSkills = Array.isArray(skills) ? skills : [];
   const safeProjects = Array.isArray(projects) ? projects : [];
-  ctx.fillStyle = '#f7f7f4';
+  // Dark premium gradient background
+  const bgGrad = ctx.createLinearGradient(0, 0, canvas.width / 2, canvas.height);
+  bgGrad.addColorStop(0,   '#0f0f1a');
+  bgGrad.addColorStop(0.5, '#141428');
+  bgGrad.addColorStop(1,   '#1a1030');
+  ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#111111';
-  ctx.lineWidth = 5;
+  // Diagonal gloss sweep
+  const gloss = ctx.createLinearGradient(0, 0, canvas.width / 2, canvas.height / 2);
+  gloss.addColorStop(0,    'rgba(255,255,255,0.06)');
+  gloss.addColorStop(0.38, 'rgba(255,255,255,0.13)');
+  gloss.addColorStop(0.39, 'rgba(255,255,255,0.0)');
+  gloss.addColorStop(1,    'rgba(255,255,255,0.0)');
+  ctx.fillStyle = gloss;
+  ctx.fillRect(0, 0, canvas.width / 2, canvas.height);
+
+  // Subtle purple accent glow bottom-left
+  const glow = ctx.createRadialGradient(100, canvas.height - 100, 0, 100, canvas.height - 100, 500);
+  glow.addColorStop(0,   'rgba(139,92,246,0.18)');
+  glow.addColorStop(1,   'rgba(139,92,246,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, canvas.width / 2, canvas.height);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.04)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 3;
 
   const padding = 55;
   const gap = 32;
@@ -407,7 +409,7 @@ function createCardTexture({
   drawBox(ctx, box4);
 
   // Box 1: College
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = '#ffffff';
   ctx.font = '800 46px Arial';
   ctx.fillText('COLLEGE', box1.x + 30, box1.y + 62);
 
@@ -432,7 +434,7 @@ function createCardTexture({
   }
 
   // Box 2: Profile photo
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = '#ffffff';
   ctx.font = '800 46px Arial';
   ctx.fillText(studentName.split(' ')[0], box2.x + 30, box2.y + 65);
 
@@ -444,12 +446,12 @@ function createCardTexture({
     ctx.fillRect(box2.x + 35, box2.y + 105, box2.w - 70, 405);
   }
 
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
   ctx.font = '700 30px Arial';
   ctx.fillText('Portfolio ID Card', box2.x + 35, box2.y + box2.h - 40);
 
   // Box 3: GPA and semester
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = '#ffffff';
   ctx.font = '800 46px Arial';
   ctx.fillText('ACADEMICS', box3.x + 30, box3.y + 65);
 
@@ -460,7 +462,7 @@ function createCardTexture({
   ctx.fillText(semester, box3.x + 30, box3.y + 250);
 
   // Box 4: Skills and projects
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = '#ffffff';
   ctx.font = '800 48px Arial';
   ctx.fillText('SKILLS & PROJECTS', box4.x + 40, box4.y + 75);
 
@@ -488,14 +490,24 @@ function createCardTexture({
 
   // Footer text
   ctx.font = '800 32px Arial';
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
   ctx.fillText(`${studentName}  •  DEVELOPER PORTFOLIO`, box4.x, 1360);
 
   // --- DRAW BACK OF THE CARD ---
   // A simple design for the back of the card on the right half of the canvas
   const backXOffset = 1000;
   
-  ctx.fillStyle = '#111111';
+  const backGrad = ctx.createLinearGradient(backXOffset, 0, backXOffset + 1000, canvas.height);
+  backGrad.addColorStop(0, '#0f0f1a');
+  backGrad.addColorStop(1, '#1a1030');
+  ctx.fillStyle = backGrad;
+  ctx.fillRect(backXOffset + padding, padding, 1000 - padding * 2, 1400 - padding * 2);
+
+  // Back gloss
+  const backGloss = ctx.createLinearGradient(backXOffset, 0, backXOffset + 500, 700);
+  backGloss.addColorStop(0,    'rgba(255,255,255,0.08)');
+  backGloss.addColorStop(0.4,  'rgba(255,255,255,0.0)');
+  ctx.fillStyle = backGloss;
   ctx.fillRect(backXOffset + padding, padding, 1000 - padding * 2, 1400 - padding * 2);
   
   ctx.fillStyle = '#ffffff';
@@ -562,12 +574,17 @@ function createStrapTexture({ baseImage, logoImage, text }) {
 }
 
 function drawBox(ctx, box) {
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(box.x, box.y, box.w, box.h);
+  // Glassmorphism box
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  ctx.beginPath();
+  ctx.roundRect(box.x, box.y, box.w, box.h, 16);
+  ctx.fill();
 
-  ctx.strokeStyle = '#111111';
-  ctx.lineWidth = 5;
-  ctx.strokeRect(box.x, box.y, box.w, box.h);
+  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.roundRect(box.x, box.y, box.w, box.h, 16);
+  ctx.stroke();
 }
 
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {

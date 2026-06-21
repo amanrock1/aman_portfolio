@@ -55,9 +55,9 @@ const HeroSection = () => {
                           "cursor-default text-edge-outline font-display "
                         )}
                       >
-                        {config.author.split(" ")[0]}
+                        {config.author.split(" ").slice(0, 2).join(" ")}
                         <br className="md:block hiidden" />
-                        {config.author.split(" ")[1]}
+                        {config.author.split(" ").slice(2).join(" ")}
                       </h1>
                     </TooltipTrigger>
                     <TooltipContent
