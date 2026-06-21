@@ -413,7 +413,7 @@ function createCardTexture({
   ctx.font = '800 46px Arial';
   ctx.fillText('COLLEGE', box1.x + 30, box1.y + 62);
 
-  ctx.font = '800 40px Arial';
+  ctx.font = '700 40px Arial';
   wrapText(ctx, collegeName, box1.x + 30, box1.y + 130, box1.w - 150, 48);
 
   if (collegeLogoImage) {
@@ -447,7 +447,7 @@ function createCardTexture({
   }
 
   ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.font = '800 30px Arial';
+  ctx.font = '700 30px Arial';
   ctx.fillText('Portfolio ID Card', box2.x + 35, box2.y + box2.h - 40);
 
   // Box 3: GPA and semester
@@ -455,10 +455,10 @@ function createCardTexture({
   ctx.font = '800 46px Arial';
   ctx.fillText('ACADEMICS', box3.x + 30, box3.y + 65);
 
-  ctx.font = '800 64px Arial';
+  ctx.font = '700 64px Arial';
   ctx.fillText(gpa, box3.x + 30, box3.y + 175);
 
-  ctx.font = '800 44px Arial';
+  ctx.font = '700 44px Arial';
   ctx.fillText(semester, box3.x + 30, box3.y + 250);
 
   // Box 4: Skills and projects
@@ -469,7 +469,7 @@ function createCardTexture({
   ctx.font = '800 38px Arial';
   ctx.fillText('Skills', box4.x + 40, box4.y + 150);
 
-  ctx.font = '800 34px Arial';
+  ctx.font = '700 34px Arial';
   let skillY = box4.y + 215;
 
   safeSkills.forEach((skill) => {
@@ -480,7 +480,7 @@ function createCardTexture({
   ctx.font = '800 38px Arial';
   ctx.fillText('Projects', box4.x + 460, box4.y + 150);
 
-  ctx.font = '800 34px Arial';
+  ctx.font = '700 34px Arial';
   let projectY = box4.y + 215;
 
   safeProjects.forEach((project) => {
