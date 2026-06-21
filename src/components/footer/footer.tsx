@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import SocialMediaButtons from "../social/social-media-icons";
 import { Button } from "../ui/button";
