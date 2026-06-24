@@ -29,7 +29,8 @@ import {
   SiTypescript,
   SiVuedotjs,
 } from "react-icons/si";
-import { TbBrandFramerMotion, TbMail, TbView360, TbVirtualReality } from "react-icons/tb";
+import { FaVrCardboard } from "react-icons/fa";
+import { TbBrandFramerMotion, TbMail, TbView360 } from "react-icons/tb";
 const BASE_PATH = "/assets/projects-screenshots";
 
 const ProjectsLinks = ({ live, repo }: { live: string; repo?: string }) => {
@@ -98,7 +99,7 @@ const PROJECT_SKILLS = {
     title: "Virtual Reality",
     bg: "black",
     fg: "white",
-    icon: <TbVirtualReality />,
+    icon: <FaVrCardboard />,
   },
   vite: {
     title: "Vite",
