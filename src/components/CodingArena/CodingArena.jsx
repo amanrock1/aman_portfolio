@@ -405,7 +405,6 @@ export default function CodingArena() {
         {/* ── HEADER ── */}
         <div className="ca-header">
           <div className="ca-eyebrow">
-            <span className="ca-live-dot" />
             <span className="ca-eyebrow-line" />
             Real-time stats
           </div>
@@ -450,7 +449,6 @@ export default function CodingArena() {
                 </div>
               </div>
               <div className="ca-status-pill">
-                <span className="ca-live-dot" />
                 {loading ? "SYNCING" : "LIVE"}
               </div>
             </div>

@@ -32,6 +32,22 @@ function generateActivity(seed) {
   return activity;
 }
 
+/* ── Calculate streak from activity array ── */
+function calculateStreak(activity) {
+  if (!activity || activity.length === 0) return 0;
+  const sorted = [...activity].sort((a, b) => a.date.localeCompare(b.date));
+  let longest = 0, current = 0;
+  for (const c of sorted) {
+    if (c.count > 0) {
+      current++;
+      if (current > longest) longest = current;
+    } else {
+      current = 0;
+    }
+  }
+  return longest;
+}
+
 /* ── GitHub Contributions Calendar Scraper ── */
 async function fetchGitHubContributions(user) {
   const url = `https://github.com/users/${user}/contributions`;
@@ -105,6 +121,8 @@ async function getLeetCodeStats() {
   const hard   = stats.find((i) => i.difficulty === "Hard");
   const cr     = data.data.userContestRanking;
 
+  const activity = generateActivity(11);
+  const streak = calculateStreak(activity);
   return {
     id: "leetcode", name: "LeetCode", username: USERNAMES.leetcode,
     solved: total  ? total.count  : 0,
@@ -112,7 +130,8 @@ async function getLeetCodeStats() {
     medium: medium ? medium.count : 0,
     hard:   hard   ? hard.count   : 0,
     rating: cr ? Math.round(cr.rating) : "N/A",
-    activity: generateActivity(11),
+    activity,
+    streak,
   };
 }
 
@@ -129,29 +148,39 @@ async function getCodeforcesStats() {
 
   if (uData.status !== "OK") throw new Error("Codeforces user not found");
   const user = uData.result[0];
-  const solved = new Set();
+  let solvedCount = 0;
   if (sData.status === "OK") {
+    const solved = new Set();
     for (const s of sData.result) {
       if (s.verdict === "OK" && s.problem) solved.add(s.problem.contestId + "-" + s.problem.index);
     }
+    solvedCount = solved.size;
+  } else {
+    solvedCount = 94; // fallback solved problems count if Codeforces status endpoint fails
   }
+  const activity = generateActivity(22);
+  const streak = calculateStreak(activity);
   return {
     id: "codeforces", name: "Codeforces", username: USERNAMES.codeforces,
-    solved:    solved.size,
+    solved:    solvedCount,
     rating:    user.rating    || "N/A",
     maxRating: user.maxRating || "N/A",
     rank:      user.rank      || "Unrated",
     contests:  rData.status === "OK" ? rData.result.length : 0,
-    activity:  generateActivity(22),
+    activity,
+    streak,
   };
 }
 
 /* ── CodeChef (static — no public API) ── */
 async function getCodeChefStats() {
+  const activity = generateActivity(33);
+  const streak = calculateStreak(activity);
   return {
     id: "codechef", name: "CodeChef", username: USERNAMES.codechef,
     solved: 71, rating: 1420, stars: "2★", globalRank: "18K",
-    activity: generateActivity(33),
+    activity,
+    streak,
   };
 }
 
@@ -246,9 +275,18 @@ async function getGitHubStats() {
 }
 
 /* ── Fallbacks ── */
-function fallbackLeetCode()   { return { id:"leetcode",   name:"LeetCode",   username:USERNAMES.leetcode,   solved:156, easy:82, medium:61, hard:13, rating:"N/A", activity:generateActivity(11) }; }
-function fallbackCodeforces() { return { id:"codeforces", name:"Codeforces", username:USERNAMES.codeforces, solved:94, rating:1047, maxRating:1112, rank:"Pupil", contests:18, activity:generateActivity(22) }; }
-function fallbackCodeChef()   { return { id:"codechef",   name:"CodeChef",   username:USERNAMES.codechef,   solved:71, rating:1420, stars:"2★", globalRank:"18K", activity:generateActivity(33) }; }
+function fallbackLeetCode() {
+  const activity = generateActivity(11);
+  return { id:"leetcode",   name:"LeetCode",   username:USERNAMES.leetcode,   solved:156, easy:82, medium:61, hard:13, rating:"N/A", activity, streak: calculateStreak(activity) };
+}
+function fallbackCodeforces() {
+  const activity = generateActivity(22);
+  return { id:"codeforces", name:"Codeforces", username:USERNAMES.codeforces, solved:94, rating:1047, maxRating:1112, rank:"Pupil", contests:18, activity, streak: calculateStreak(activity) };
+}
+function fallbackCodeChef() {
+  const activity = generateActivity(33);
+  return { id:"codechef",   name:"CodeChef",   username:USERNAMES.codechef,   solved:71, rating:1420, stars:"2★", globalRank:"18K", activity, streak: calculateStreak(activity) };
+}
 function fallbackGitHub() {
   return {
     id: "github", name: "GitHub", username: USERNAMES.github,

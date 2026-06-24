@@ -79,19 +79,7 @@
   background: #3f3f46;
 }
 
-.ca-live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 12px #22c55e;
-  animation: ca-blink 2.2s ease infinite;
-}
 
-@keyframes ca-blink {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.4; transform: scale(0.7); }
-}
 
 .ca-title {
   margin: 0;
