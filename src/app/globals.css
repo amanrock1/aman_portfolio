@@ -128,3 +128,26 @@ body > canvas {
     scroll-behavior: auto !important;
   }
 }
+
+/* Pannellum Sleek Dark Theme Customizations */
+.pnlm-container {
+  background: #000;
+}
+.pnlm-load-box {
+  background-color: rgba(10, 15, 29, 0.95) !important;
+  border: 1px solid #3182ce !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+.pnlm-lading-text {
+  color: #fff !important;
+}
+.pnlm-control {
+  background-color: rgba(26, 32, 44, 0.8) !important;
+  border: 1px solid #2d3748 !important;
+  color: #fff !important;
+  border-radius: 4px;
+}
+.pnlm-control:hover {
+  background-color: #3182ce !important;
+}
