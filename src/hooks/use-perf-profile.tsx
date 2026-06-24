@@ -151,7 +151,7 @@ export function usePerfProfile(): PerfProfile {
     // Data Saver. Viewport size (a real media query) just scales quality down;
     // it never removes the scene. No capability heuristics — see detectSaveData.
     const lowEnd = saveData;
-    const disable3D = reducedMotion || saveData;
+    const disable3D = reducedMotion || saveData || isMobile;
     const disableDecorative = reducedMotion;
     const particleCount = disableDecorative ? 0 : isMobile ? 30 : 100;
     const maxDpr = isMobile ? 1.5 : 2;

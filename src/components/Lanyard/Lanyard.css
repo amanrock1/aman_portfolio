@@ -31,3 +31,270 @@
   background: transparent;
   overflow: hidden;
 }
+
+/* 2D Fallback Card for Mobile */
+.lanyard-card-container-2d {
+  perspective: 1200px;
+  width: 310px;
+  height: 435px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.lanyard-card-2d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8),
+              0 0 50px -10px rgba(56, 189, 248, 0.15);
+  border-radius: 20px;
+}
+
+.lanyard-card-2d.flipped {
+  transform: rotateY(180deg);
+}
+
+.lanyard-card-face-2d {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, #020617 0%, #070a13 50%, #0b0f19 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.lanyard-card-face-2d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+}
+
+.lanyard-card-back-2d {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1030 100%);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card layout segments */
+.lanyard-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-blur: 8px;
+  border-radius: 12px;
+  padding: 8px 12px;
+  height: 62px;
+}
+
+.lanyard-card-college-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.lanyard-card-college-info span {
+  font-size: 8px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.1em;
+}
+
+.lanyard-card-college-info h3 {
+  font-size: 10px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 2px 0 0 0;
+  line-height: 1.2;
+}
+
+.lanyard-card-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  object-fit: contain;
+}
+
+.lanyard-card-middle {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  height: 130px;
+}
+
+.lanyard-card-profile-box {
+  width: 48%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-blur: 8px;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lanyard-card-profile-box h4 {
+  font-size: 9px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.05em;
+}
+
+.lanyard-card-profile-img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.lanyard-card-academics-box {
+  width: 48%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-blur: 8px;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lanyard-card-academics-box h4 {
+  font-size: 9px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.05em;
+}
+
+.lanyard-card-gpa {
+  font-size: 20px;
+  font-weight: 800;
+  color: #38bdf8;
+  line-height: 1;
+}
+
+.lanyard-card-semester {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.lanyard-card-bottom {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-blur: 8px;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lanyard-card-bottom h4 {
+  font-size: 10px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.05em;
+}
+
+.lanyard-card-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 12px;
+  flex: 1;
+}
+
+.lanyard-card-details-col h5 {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+}
+
+.lanyard-card-details-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lanyard-card-details-col li {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lanyard-card-footer-text {
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 6px;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Watermark back logo */
+.lanyard-card-back-watermark {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  opacity: 0.08;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.lanyard-card-back-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.15em;
+  text-align: center;
+  z-index: 1;
+  text-transform: uppercase;
+}
+
+.lanyard-card-back-subtext {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
+  letter-spacing: 0.1em;
+  z-index: 1;
+}
+
+.lanyard-card-back-hint {
+  position: absolute;
+  bottom: 20px;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+

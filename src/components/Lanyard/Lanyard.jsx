@@ -47,6 +47,81 @@ export default function Lanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  if (isMobile) {
+    return (
+      <div className="lanyard-wrapper">
+        <div className="lanyard-card-container-2d">
+          <div
+            className={`lanyard-card-2d ${isFlipped ? 'flipped' : ''}`}
+            onClick={() => setIsFlipped(!isFlipped)}
+          >
+            {/* Front Face */}
+            <div className="lanyard-card-face-2d">
+              <div className="lanyard-card-header">
+                <div className="lanyard-card-college-info">
+                  <span>COLLEGE</span>
+                  <h3>{collegeName}</h3>
+                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={collegeLogo} alt="College Logo" className="lanyard-card-logo-img" />
+              </div>
+
+              <div className="lanyard-card-middle">
+                <div className="lanyard-card-profile-box">
+                  <h4>{studentName.split(' ')[0]}</h4>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={profilePhoto} alt="Profile" className="lanyard-card-profile-img" />
+                </div>
+
+                <div className="lanyard-card-academics-box">
+                  <h4>ACADEMICS</h4>
+                  <div className="lanyard-card-gpa">{gpa}</div>
+                  <div className="lanyard-card-semester">{semester}</div>
+                </div>
+              </div>
+
+              <div className="lanyard-card-bottom">
+                <h4>SKILLS & PROJECTS</h4>
+                <div className="lanyard-card-details-grid">
+                  <div className="lanyard-card-details-col">
+                    <h5>Skills</h5>
+                    <ul>
+                      {skills.slice(0, 4).map((skill, idx) => (
+                        <li key={idx}>• {skill}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="lanyard-card-details-col">
+                    <h5>Projects</h5>
+                    <ul>
+                      {projects.slice(0, 4).map((project, idx) => (
+                        <li key={idx}>• {project}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className="lanyard-card-footer-text">
+                  {studentName} • PORTFOLIO
+                </div>
+              </div>
+            </div>
+
+            {/* Back Face */}
+            <div className="lanyard-card-face-2d lanyard-card-back-2d">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={collegeLogo} alt="College Logo Watermark" className="lanyard-card-back-watermark" />
+              <div className="lanyard-card-back-text">DEVELOPER PORTFOLIO</div>
+              <div className="lanyard-card-back-subtext">{studentName}</div>
+              <div className="lanyard-card-back-hint">Tap to Flip</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="lanyard-wrapper">
       <Canvas
