@@ -68,6 +68,36 @@ export type Skill = {
   icon: ReactNode;
 };
 const PROJECT_SKILLS = {
+  html: {
+    title: "HTML5",
+    bg: "black",
+    fg: "white",
+    icon: <span>HTML5</span>,
+  },
+  css: {
+    title: "CSS3",
+    bg: "black",
+    fg: "white",
+    icon: <span>CSS3</span>,
+  },
+  pannellum: {
+    title: "Pannellum",
+    bg: "black",
+    fg: "white",
+    icon: <span>Pannellum</span>,
+  },
+  emailjs: {
+    title: "EmailJS",
+    bg: "black",
+    fg: "white",
+    icon: <span>EmailJS</span>,
+  },
+  vr: {
+    title: "Virtual Reality",
+    bg: "black",
+    fg: "white",
+    icon: <span>VR Mode</span>,
+  },
   vite: {
     title: "Vite",
     bg: "black",
@@ -314,6 +344,81 @@ const projects: Project[] = [
           <SlideShow
             images={[
               `${BASE_PATH}/voxtube/reddit_analysis.png`,
+            ]}
+          />
+        </div>
+      );
+    },
+  },
+  {
+    id: "vitb-360-tour",
+    category: "3D Web Experience",
+    title: "VIT Bhopal - 360° Campus Virtual Tour",
+    src: "/assets/projects-screenshots/vitb-360-tour/lion park.jpg",
+    screenshots: ["lion park.jpg", "ab2 main .jpeg", "lc 5.jpg", "all path.jpg", "flag.jpg"],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.html,
+        PROJECT_SKILLS.css,
+        PROJECT_SKILLS.js,
+        PROJECT_SKILLS.pannellum,
+        PROJECT_SKILLS.vr,
+      ],
+      backend: [
+        PROJECT_SKILLS.emailjs,
+      ],
+    },
+    live: "https://vitb-360-tour.netlify.app",
+    github: "https://github.com/amanrock1/360-VIRTUAL-CAMPUR-TOUR",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            VIT Bhopal: Immersive 360° Interactive Campus VR Portal
+          </TypographyP>
+          <TypographyP className="font-mono ">
+            An immersive, highly interactive 360-degree virtual tour of the VIT Bhopal campus. It utilizes panoramic projection engines to let users explore campus landmarks (like the Lion Park, Academic Blocks, and Hostels) directly from their browsers. Features a smooth, responsive UI with micro-interactions, an inquiry contact gateway powered by EmailJS, and a zero-delay split-screen stereoscopic Virtual Reality (VR) mode compatible with mobile VR headsets.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          
+          <TypographyH3 className="my-4 mt-8">Lion Park (Campus Landmark)</TypographyH3>
+          <p className="font-mono mb-2">
+            Experience the entrance and main meeting hub of the campus in a fully rotatable panoramic 360-degree projection.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/vitb-360-tour/lion park.jpg`,
+            ]}
+          />
+
+          <TypographyH3 className="my-4 mt-8">Academic Block 2</TypographyH3>
+          <p className="font-mono mb-2">
+            Virtually step into Academic Block 2 and navigate around the pathways.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/vitb-360-tour/ab2 main .jpeg`,
+            ]}
+          />
+
+          <TypographyH3 className="my-4 mt-8">Learning Center & Walkways</TypographyH3>
+          <p className="font-mono mb-2">
+            Explore the modern architecture of the Learning Center and stroll along the scenic campus walkways.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/vitb-360-tour/lc 5.jpg`,
+              `${BASE_PATH}/vitb-360-tour/all path.jpg`,
+            ]}
+          />
+
+          <TypographyH3 className="my-4 mt-8">Admin / Flag Area</TypographyH3>
+          <p className="font-mono mb-2">
+            Interact with hotspots around the central administrative block and the national flag area.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/vitb-360-tour/flag.jpg`,
             ]}
           />
         </div>
