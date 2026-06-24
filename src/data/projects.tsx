@@ -357,7 +357,7 @@ const projects: Project[] = [
     id: "vitb-360-tour",
     category: "3D Web Experience",
     title: "VIT Bhopal - 360° Campus Virtual Tour",
-    src: "/assets/projects-screenshots/vitb-360-tour/lion park.jpg",
+    src: "/assets/projects-screenshots/vitb-360-tour/main.png",
     screenshots: ["lion park.jpg", "ab2 main .jpeg", "lc 5.jpg", "all path.jpg", "flag.jpg"],
     skills: {
       frontend: [
