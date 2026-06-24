@@ -68,6 +68,18 @@ export type Skill = {
   icon: ReactNode;
 };
 const PROJECT_SKILLS = {
+  vite: {
+    title: "Vite",
+    bg: "black",
+    fg: "white",
+    icon: <span>Vite</span>,
+  },
+  gemini: {
+    title: "Google Gemini",
+    bg: "black",
+    fg: "white",
+    icon: <span>Gemini</span>,
+  },
   next: {
     title: "Next.js",
     bg: "black",
@@ -235,6 +247,79 @@ export type Project = {
   live: string;
 };
 const projects: Project[] = [
+  {
+    id: "voxtube",
+    category: "AI-Powered Analytics",
+    title: "VoxTube",
+    src: "/assets/projects-screenshots/voxtube/landing_page.png",
+    screenshots: ["landing_page.png", "features_pipeline.png", "youtube_analysis.png", "reddit_analysis.png"],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.vite,
+        PROJECT_SKILLS.ts,
+        PROJECT_SKILLS.tailwind,
+      ],
+      backend: [
+        PROJECT_SKILLS.node,
+        PROJECT_SKILLS.express,
+        PROJECT_SKILLS.supabase,
+        PROJECT_SKILLS.gemini,
+      ],
+    },
+    live: "https://voxtube-aman.vercel.app",
+    github: "https://github.com/amanrock1/voxtube",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            VoxTube: AI-Powered Comment Analytics Engine
+          </TypographyP>
+          <TypographyP className="font-mono ">
+            VoxTube is an enterprise-grade analytics engine designed to extract signal from audience noise in seconds.
+            By connecting the YouTube Data API v3 and Reddit Data Ingestion with Google Gemini AI, VoxTube aggregates,
+            classifies, and summarizes audience feedback. It transforms thousands of lines of text into structured,
+            actionable insights (categorized as Praise, Question, Feedback/Bug, or Noise, along with sentiment analysis)
+            to guide content strategy and business growth.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          
+          <TypographyH3 className="my-4 mt-8">Audience Insight Pipeline</TypographyH3>
+          <p className="font-mono mb-2">
+            The processing pipeline seamlessly ingests raw comments from YouTube and Reddit, passes them through the
+            Gemini AI model for classification and summarization, and saves structured reports for sub-50ms repeat loads.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/voxtube/features_pipeline.png`,
+            ]}
+          />
+
+          <TypographyH3 className="my-4 mt-8">YouTube Video Analytics</TypographyH3>
+          <p className="font-mono mb-2">
+            Fetch comments directly from any YouTube video and see a breakdown of praise, bugs, and questions,
+            along with automated summaries and sentiment analytics.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/voxtube/youtube_analysis.png`,
+            ]}
+          />
+
+          <TypographyH3 className="my-4 mt-8">Reddit Thread Ingestion</TypographyH3>
+          <p className="font-mono mb-2">
+            Analyze discussions, subreddits, or threads on Reddit to gauge community sentiment, identify questions,
+            and filter out noise in real time.
+          </p>
+          <SlideShow
+            images={[
+              `${BASE_PATH}/voxtube/reddit_analysis.png`,
+            ]}
+          />
+        </div>
+      );
+    },
+  },
   {
     id: "codingducks",
     category: "Coding platform",
