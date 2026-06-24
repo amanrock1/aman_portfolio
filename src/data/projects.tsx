@@ -9,9 +9,11 @@ import { ReactNode } from "react";
 import { RiNextjsFill, RiNodejsFill, RiReactjsFill } from "react-icons/ri";
 import {
   SiChakraui,
+  SiCss3,
   SiDocker,
   SiExpress,
   SiFirebase,
+  SiHtml5,
   SiJavascript,
   SiMongodb,
   SiPostgresql,
@@ -27,7 +29,7 @@ import {
   SiTypescript,
   SiVuedotjs,
 } from "react-icons/si";
-import { TbBrandFramerMotion } from "react-icons/tb";
+import { TbBrandFramerMotion, TbMail, TbView360, TbVirtualReality } from "react-icons/tb";
 const BASE_PATH = "/assets/projects-screenshots";
 
 const ProjectsLinks = ({ live, repo }: { live: string; repo?: string }) => {
@@ -72,31 +74,31 @@ const PROJECT_SKILLS = {
     title: "HTML5",
     bg: "black",
     fg: "white",
-    icon: <span>HTML5</span>,
+    icon: <SiHtml5 />,
   },
   css: {
     title: "CSS3",
     bg: "black",
     fg: "white",
-    icon: <span>CSS3</span>,
+    icon: <SiCss3 />,
   },
   pannellum: {
     title: "Pannellum",
     bg: "black",
     fg: "white",
-    icon: <span>Pannellum</span>,
+    icon: <TbView360 />,
   },
   emailjs: {
     title: "EmailJS",
     bg: "black",
     fg: "white",
-    icon: <span>EmailJS</span>,
+    icon: <TbMail />,
   },
   vr: {
     title: "Virtual Reality",
     bg: "black",
     fg: "white",
-    icon: <span>VR Mode</span>,
+    icon: <TbVirtualReality />,
   },
   vite: {
     title: "Vite",
