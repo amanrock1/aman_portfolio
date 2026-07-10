@@ -35,7 +35,7 @@ const config = {
   },
   social: {
     instagram: "https://www.instagram.com/aman_kumar._.18/",
-    linkedin: "https://www.linkedin.com/in/aman-prabhat-b75735325",
+    linkedin: "https://www.linkedin.com/in/aman-kumar-prabhat-b75735325",
     github: "https://github.com/amanrock1",
   },
 };
