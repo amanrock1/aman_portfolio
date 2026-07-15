@@ -71,8 +71,8 @@ function Footer() {
 
       <div className="flex items-center gap-4">
         <a 
-          href="/Aman_Kumar_Prabhat_Resume.pdf" 
-          download="Aman_Kumar_Prabhat_Resume.pdf"
+          href="/Aman_Kumar_Resume_Update.pdf" 
+          download="Aman_Kumar_Resume_Update.pdf"
           target="_blank"
           rel="noopener noreferrer"
         >
