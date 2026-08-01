@@ -64,24 +64,26 @@ const SlideShow = ({ images }: { images: string[] }) => {
           <div className="splide__progress__bar"></div>
         </div>
       </Splide>
-      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage('')}>
-        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 border-none bg-transparent"
-          onClick={() => setSelectedImage('')} >
-          <DialogHeader className="sr-only">
-            <DialogTitle>Screenshot</DialogTitle>
-            <DialogDescription>Zoomed screenshot</DialogDescription>
-          </DialogHeader>
-          <motion.div>
-            <Image
-              src={selectedImage || ''}
-              alt="screenshot"
-              width={1080}
-              height={1080}
-              className="w-full rounded-lg h-auto max-h-[90vh]"
-            />
-          </motion.div>
-        </DialogContent>
-      </Dialog>
+      {selectedImage && (
+        <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage('')}>
+          <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 border-none bg-transparent"
+            onClick={() => setSelectedImage('')} >
+            <DialogHeader className="sr-only">
+              <DialogTitle>Screenshot</DialogTitle>
+              <DialogDescription>Zoomed screenshot</DialogDescription>
+            </DialogHeader>
+            <motion.div>
+              <Image
+                src={selectedImage}
+                alt="screenshot"
+                width={1080}
+                height={1080}
+                className="w-full rounded-lg h-auto max-h-[90vh]"
+              />
+            </motion.div>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
 
   );

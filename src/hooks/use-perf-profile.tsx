@@ -151,7 +151,7 @@ export function usePerfProfile(): PerfProfile {
     // Data Saver. Viewport size (a real media query) just scales quality down;
     // it never removes the scene. No capability heuristics — see detectSaveData.
     const lowEnd = saveData;
-    const disable3D = reducedMotion || saveData || isMobile;
+    const disable3D = true; // Force 3D scene disabled (removes 3D keyboard fully)
     const disableDecorative = reducedMotion;
     const particleCount = disableDecorative ? 0 : isMobile ? 30 : 100;
     const maxDpr = isMobile ? 1.5 : 2;

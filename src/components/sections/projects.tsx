@@ -5,6 +5,8 @@ import {
   ResponsiveDialog,
   ResponsiveDialogContent,
   ResponsiveDialogTrigger,
+  ResponsiveDialogTitle,
+  ResponsiveDialogDescription,
 } from "../ui/responsive-dialog";
 import { FloatingDock } from "../ui/floating-dock";
 import { ScrollArea } from "../ui/scroll-area";
@@ -36,8 +38,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <ResponsiveDialog>
         <ResponsiveDialogTrigger className="bg-transparent flex justify-center">
           <div
-            className="relative w-[90vw] max-w-[400px] md:w-[400px] h-auto rounded-lg overflow-hidden"
-            style={{ aspectRatio: "3/2" }}
+            className="relative h-auto rounded-lg overflow-hidden"
+            style={{ aspectRatio: "3/2", width: "90vw", maxWidth: "400px" }}
           >
             <Image
               className="absolute w-full h-full top-0 left-0 hover:scale-[1.05] transition-all"
@@ -58,6 +60,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
         </ResponsiveDialogTrigger>
 
         <ResponsiveDialogContent className="md:max-w-4xl md:h-[85vh] md:!flex md:flex-col md:overflow-hidden md:p-0 md:gap-0">
+          <ResponsiveDialogTitle asChild>
+            <span className="sr-only">{project.title}</span>
+          </ResponsiveDialogTitle>
+          <ResponsiveDialogDescription className="sr-only">
+            Details about project {project.title}
+          </ResponsiveDialogDescription>
           {/* Sticky header */}
           <div className="shrink-0 border-b border-border bg-background/80 backdrop-blur-sm px-8 py-5">
             <div className="flex items-center justify-between gap-4">
