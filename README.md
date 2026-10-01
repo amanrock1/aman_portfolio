@@ -10,10 +10,10 @@ Personal portfolio of **Aman Kumar Prabhat**, a B.Tech CSE student at VIT Bhopal
 |---|---|
 | **Home** (`/`) | Name and status, a taped stack of the featured case studies, a filterable **Ship Log** of everything built, and live Arena stats |
 | **Work** (`/work`) | Case-study cards, the other projects, and the full Ship Log |
-| **Case studies** (`/work/[slug]`) | Problem-first write-ups: **OpenSource Buddy**, **DukaanDost AI**, **VoxTube** |
+| **Case studies** (`/work/[slug]`) | Problem-first write-ups: **OpenSource Buddy**, **360 Campus Tour**, **VoxTube**, **DukaanDost AI** |
 | **Coding Arena** (`/arena`) | Live LeetCode, Codeforces, CodeChef and GitHub stats with a heatmap, a contest-rating graph and topic bars |
 | **Toolbox** (`/toolbox`) | 23 tools as pressable tiles; tap one to see which projects used it |
-| **About** (`/about`) | Intro, education, hackathons, certifications |
+| **About** (`/about`) | Intro, education, hackathons (with a Show more), and certifications you can tap to open |
 | **Contact** (`/contact`) | Copy-email, links and a letter-style form (sends through Resend) |
 | **Soundtrack** (`/soundtrack`) | A receipt-style music player driving a Spotify playlist |
 

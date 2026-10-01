@@ -9,21 +9,43 @@ export const education = {
   grade: "CGPA 8.40 / 10 (through Semester 6)",
 };
 
-export const hackathons = [
-  { result: "Final rounds", name: "Design2Code 2.0 Frontend Hackathon" },
-  { result: "Final rounds", name: "Dawn of Code Hackathon" },
-  { result: "Participated", name: "Bharatiya Antariksh Hackathon 2026" },
-  { result: "Participated", name: "Codex India Hackathon 2026" },
+export type Hackathon = { name: string; result: string; host?: string; highlight?: boolean };
+
+// Hackathons reached beyond the first round, in display order. Each result is shown exactly as written.
+export const hackathons: Hackathon[] = [
+  { name: "The KEN Great Rewiring", result: "3rd round · finalist", highlight: true },
+  { name: "Adobe Hackathon", result: "3rd round", highlight: true },
+  { name: "Codex India Hackathon 2026", result: "Final round", highlight: true },
+  { name: "Design2Code 2.0 Frontend Hackathon", result: "Final rounds", highlight: true },
+  { name: "Dawn of Code Hackathon", result: "Final rounds", highlight: true },
+  { name: "Bharatiya Antariksh Hackathon 2026", result: "2nd round" },
 ];
 
-export const certifications = [
-  { name: "Machine Learning A-Z", issuer: "Udemy" },
+// Shown behind "Show more" on the About page.
+export const participatedHackathons: Hackathon[] = [
+  { name: "Claw&Shield 2026", result: "Participated" },
+  { name: "Haxplore", result: "Participated", host: "Indian Institute of Technology (IIT), Delhi" },
+  { name: "Indian Institute of Technology, Banaras Hindu University (IIT-BHU)", result: "Participated" },
+];
+
+// Certificates live in public/assets/certificates (file names include spaces, so the page URL-encodes them).
+// Titles and issuers are read from the certificates themselves.
+export type Certification = { name: string; issuer: string; file?: string };
+
+export const certifications: Certification[] = [
+  { name: "Machine Learning A-Z [2026]: ML, DL, AI with AWS, Python & R", issuer: "Udemy", file: "Machine Learning A-Z udemy.jpg" },
+  { name: "Google AI Essentials", issuer: "Google · Coursera", file: "Google AI Essentials.png" },
+  { name: "Google Prompting Essentials", issuer: "Google · Coursera", file: "Google Prompting Essentials.png" },
+  { name: "AI Readiness Foundation", issuer: "IICT & AI Skills House, with Google and YouTube", file: "AI Readiness Foundation iict abd ai skill house with colaboration of googl and you tube.png" },
+  { name: "Intro to AR/VR/MR/XR: Technologies, Applications & Issues", issuer: "University of Michigan · Coursera", file: "Intro to ARVRMRXR.jpeg" },
+  { name: "Introduction to Internet of Things", issuer: "NPTEL · IIT Kharagpur", file: "nptel iot.png" },
+  { name: "TCS iON Career Edge - Young Professional", issuer: "TCS iON", file: "TCS iON Career Edge - Young Professional.png" },
+  { name: "MATLAB Onramp", issuer: "MathWorks", file: "matlab.jpeg" },
+  { name: "Python Essentials", issuer: "VITyarthi · VIT Bhopal", file: "vitryarthi PYTHON.png" },
+  { name: "Fundamentals of AI and ML", issuer: "VITyarthi · VIT Bhopal", file: "vitryarthi ai ml.png" },
+  { name: "Open Source Software", issuer: "VITyarthi · VIT Bhopal", file: "vitryarthi open source.png" },
+  // No certificate image in the folder yet, so this one is listed but not clickable.
   { name: "Introduction to Generative AI", issuer: "Google" },
-  { name: "Google AI Essentials", issuer: "Google" },
-  { name: "Intro to AR/VR/MR/XR", issuer: "University of Michigan" },
-  { name: "Introduction to Internet of Things", issuer: "NPTEL" },
-  { name: "VITYARTHI Open Source Certificate", issuer: "VIT" },
-  { name: "MATLAB Certified", issuer: "MATLAB" },
 ];
 
 // Soundtrack: Aman's Spotify playlist "2k26" (12 tracks). Titles, artists and lengths come from the

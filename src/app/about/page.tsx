@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { config } from "@/data/config";
-import { certifications, education, hackathons, intro } from "@/content/about";
+import { education, intro } from "@/content/about";
 import { tools } from "@/content/tools";
 import { ArrowRight, DownloadIcon } from "@/components/icons";
+import { Certificates } from "@/components/certificates";
+import { Hackathons } from "@/components/hackathons";
 import { ExternalLink, MarginNote, PageHeader } from "@/components/kit";
 
 export const metadata: Metadata = { title: "About" };
@@ -44,17 +46,10 @@ export default function AboutPage() {
           <p className="mt-auto pt-6 font-mono text-[13px] text-ink">{education.grade}</p>
         </section>
 
-        {/* Hackathons as stamped tickets */}
+        {/* Hackathons as stamped tickets; the participated ones are behind Show more */}
         <section className="press p-6 lg:col-span-6">
           <p className="label mb-4">Hackathons</p>
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {hackathons.map((h) => (
-              <li key={h.name} className="rounded border border-dashed border-ink p-3">
-                <span className={`font-mono text-[11px] uppercase tracking-[0.08em] ${h.result === "Final rounds" ? "text-vermilion" : "text-ink-soft"}`}>{h.result}</span>
-                <p className="mt-1 font-serif text-[18px] leading-tight text-ink">{h.name}</p>
-              </li>
-            ))}
-          </ul>
+          <Hackathons />
         </section>
 
         {/* Toolbox teaser */}
@@ -76,21 +71,13 @@ export default function AboutPage() {
           </Link>
         </section>
 
-        {/* Certifications as stickers */}
+        {/* Certifications as stickers; tap one to open the certificate */}
         <section className="press p-6 lg:col-span-8">
-          <p className="label mb-4">Certifications</p>
-          <ul className="flex flex-wrap gap-3">
-            {certifications.map((c, i) => (
-              <li
-                key={c.name}
-                className="rounded border border-dashed border-ink bg-paper-raised px-3 py-2"
-                style={{ transform: `rotate(${[-1.5, 1, -0.5, 1.5, -1, 0.5, -1.2][i % 7]}deg)` }}
-              >
-                <p className="text-[14px] text-ink">{c.name}</p>
-                <p className="font-mono text-[11px] text-ink-soft">{c.issuer}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+            <p className="label">Certifications</p>
+            <span className="font-mono text-[11px] text-ink-faint">tap one to view it</span>
+          </div>
+          <Certificates />
         </section>
 
         {/* Practice */}

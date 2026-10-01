@@ -1,5 +1,6 @@
 // Project data. Facts come from each repo's README and the resume.
-// Dates are the month of the latest push to the repo (used as the "ship log").
+// Dates are the month of the latest push to the repo.
+// ORDER MATTERS: array order is the display order on the home page, Work page and Ship Log.
 
 export type Category = "Full-stack" | "AI" | "3D" | "Game" | "Hackathon";
 
@@ -80,45 +81,53 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "dukaandost-ai",
-    title: "DukaanDost AI",
-    date: "2026-08",
-    summary: "Voice-first operations workspace for small Indian retailers. Speak in Hindi or English to record sales, check stock and generate GST invoices.",
-    tags: ["Next.js", "Groq", "Prisma", "Postgres"],
-    categories: ["AI", "Full-stack", "Hackathon"],
-    github: gh("Dukaan_Dost"),
-    live: "https://kirana-copilot-ai.vercel.app",
-    event: "Codex India Hackathon 2026",
+    slug: "campus-tour",
+    title: "360 Campus Tour",
+    date: "2026-06",
+    summary: "Interactive 360-degree VIT Bhopal campus tour with hotspots and scene transitions, VR-ready.",
+    tags: ["JavaScript", "Pannellum", "Marzipano"],
+    categories: ["3D"],
+    github: gh("360-VIRTUAL-CAMPUR-TOUR"),
+    live: "https://360-virtual-campur-tour.vercel.app/",
+    cover: { src: "/assets/projects/campus-tour/main.png", caption: "Tour home" },
     caseStudy: {
-      headline: "Typing is friction for shopkeepers.",
-      meta: "Codex India Hackathon 2026 · Next.js · Groq · Prisma · Postgres",
-      screenshots: [{ caption: "demo screenshot" }],
+      headline: "Photo galleries can't show how a campus connects.",
+      meta: "JavaScript · Pannellum · HTML5 Canvas · MIT licensed",
+      screenshots: [
+        { src: "/assets/projects/campus-tour/main.png", caption: "Tour home" },
+        { src: "/assets/projects/campus-tour/panorama.jpg", caption: "360° panorama" },
+      ],
       sections: [
         {
           kind: "text",
           title: "The problem",
-          body: "Small shops in India are stuck with dense, form-heavy inventory software. Owners are busy and need hands-free updates, and handling GST rates, HSN codes and invoices by hand is slow.",
-        },
-        {
-          kind: "text",
-          title: "The idea",
-          body: "A voice-first workspace. An owner says “Sold 5 laptops for 40,000 each to Aman” in English or Hindi, and the assistant works out the action, checks stock, updates the database and produces a downloadable GST tax invoice.",
+          body: "Exploring a large university campus remotely is hard. Static photo galleries and linear videos don't convey scale, connectivity or context, and prospective students and parents often can't visit before enrolling.",
         },
         {
           kind: "steps",
-          title: "How it works",
+          title: "What it does",
           steps: [
-            { label: "Voice or text input", detail: "English or Hindi" },
-            { label: "Speech-to-text", detail: "Whisper large-v3 via Groq" },
-            { label: "Planner + intent", detail: "Llama 3.3: sale, purchase, stock check or invoice" },
-            { label: "Extract details", detail: "product, quantity, price; asks if something is missing" },
-            { label: "Match + validate", detail: "fuzzy-matches the catalog and checks stock" },
-            { label: "Write + invoice", detail: "saves the transaction and compiles a GST invoice" },
+            { label: "Interactive 360° panorama", detail: "drag, pan and zoom high-resolution views of campus sites" },
+            { label: "Hotspot navigation", detail: "point-of-interest links move you between adjacent scenes" },
+            { label: "Stereoscopic VR mode", detail: "splits the screen for mobile VR headsets" },
+            { label: "Chroma-keyed virtual guide", detail: "canvas code removes a green-screen backdrop so a presenter blends into the scene" },
+            { label: "Direct navigation sidebar", detail: "jump straight to major locations" },
+            { label: "Performance-minded core", detail: "texture capping and lazy scene loading for lower-end devices" },
           ],
         },
       ],
-      stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind", "Prisma", "Neon Postgres", "Groq (Llama 3.3 70B, Whisper large-v3)", "pdf-lib"],
+      stack: ["JavaScript (ES6)", "Pannellum 2.5.6", "HTML5 Canvas", "HTML5 / CSS3", "MIT licensed"],
     },
+  },
+  {
+    slug: "cyber-runner",
+    title: "Cyber Runner 2D",
+    date: "2026-08",
+    summary: "Retro cyberpunk platformer on HTML5 Canvas with zero dependencies.",
+    tags: ["JavaScript", "Canvas", "Web Audio"],
+    categories: ["Game"],
+    github: gh("HTML_game_dev"),
+    live: "https://amanrock1.github.io/HTML_game_dev/",
   },
   {
     slug: "voxtube",
@@ -164,15 +173,45 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "campus-tour",
-    title: "360 Campus Tour",
-    date: "2026-06",
-    summary: "Interactive 360-degree VIT Bhopal campus tour with hotspots and scene transitions, VR-ready.",
-    tags: ["JavaScript", "Pannellum", "Marzipano"],
-    categories: ["3D"],
-    github: gh("360-VIRTUAL-CAMPUR-TOUR"),
-    live: "https://360-virtual-campur-tour.vercel.app/",
-    cover: { src: "/assets/projects/campus-tour/main.png", caption: "Tour home" },
+    slug: "dukaandost-ai",
+    title: "DukaanDost AI",
+    date: "2026-08",
+    summary: "Voice-first operations workspace for small Indian retailers. Speak in Hindi or English to record sales, check stock and generate GST invoices.",
+    tags: ["Next.js", "Groq", "Prisma", "Postgres"],
+    categories: ["AI", "Full-stack", "Hackathon"],
+    github: gh("Dukaan_Dost"),
+    live: "https://kirana-copilot-ai.vercel.app",
+    event: "Codex India Hackathon 2026",
+    caseStudy: {
+      headline: "Typing is friction for shopkeepers.",
+      meta: "Codex India Hackathon 2026 · Next.js · Groq · Prisma · Postgres",
+      screenshots: [{ caption: "demo screenshot" }],
+      sections: [
+        {
+          kind: "text",
+          title: "The problem",
+          body: "Small shops in India are stuck with dense, form-heavy inventory software. Owners are busy and need hands-free updates, and handling GST rates, HSN codes and invoices by hand is slow.",
+        },
+        {
+          kind: "text",
+          title: "The idea",
+          body: "A voice-first workspace. An owner says “Sold 5 laptops for 40,000 each to Aman” in English or Hindi, and the assistant works out the action, checks stock, updates the database and produces a downloadable GST tax invoice.",
+        },
+        {
+          kind: "steps",
+          title: "How it works",
+          steps: [
+            { label: "Voice or text input", detail: "English or Hindi" },
+            { label: "Speech-to-text", detail: "Whisper large-v3 via Groq" },
+            { label: "Planner + intent", detail: "Llama 3.3: sale, purchase, stock check or invoice" },
+            { label: "Extract details", detail: "product, quantity, price; asks if something is missing" },
+            { label: "Match + validate", detail: "fuzzy-matches the catalog and checks stock" },
+            { label: "Write + invoice", detail: "saves the transaction and compiles a GST invoice" },
+          ],
+        },
+      ],
+      stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind", "Prisma", "Neon Postgres", "Groq (Llama 3.3 70B, Whisper large-v3)", "pdf-lib"],
+    },
   },
   {
     slug: "littlebits",
@@ -183,16 +222,6 @@ export const projects: Project[] = [
     categories: ["Full-stack"],
     github: gh("LittleBits"),
     live: "https://littlebitsclub.netlify.app/",
-  },
-  {
-    slug: "cyber-runner",
-    title: "Cyber Runner 2D",
-    date: "2026-08",
-    summary: "Retro cyberpunk platformer on HTML5 Canvas with zero dependencies.",
-    tags: ["JavaScript", "Canvas", "Web Audio"],
-    categories: ["Game"],
-    github: gh("HTML_game_dev"),
-    live: "https://amanrock1.github.io/HTML_game_dev/",
   },
   {
     slug: "squadup",
@@ -206,7 +235,8 @@ export const projects: Project[] = [
 ];
 
 export const caseStudies = projects.filter((p) => p.caseStudy);
-export const shipLog = [...projects].sort((a, b) => b.date.localeCompare(a.date));
+// Ship Log follows the curated order of `projects` above (not strictly by date).
+export const shipLog = projects;
 
 export function formatMonth(date: string) {
   const [y, m] = date.split("-").map(Number);

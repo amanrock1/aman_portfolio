@@ -15,7 +15,7 @@ const quickLinks = [
   { href: "/toolbox", label: "Toolbox", caption: "tools + proof", Icon: ToolboxIcon },
 ];
 
-const tilts = [-2, 1.5, -1];
+const tilts = [-2, 1.5, -1, 2];
 
 export default async function HomePage() {
   const [leetcode, codeforces, github] = await Promise.all([getLeetCode(), getCodeforces(), getGitHub()]);
