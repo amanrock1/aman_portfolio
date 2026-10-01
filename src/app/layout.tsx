@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={[inter.variable, archivoBlack.variable, "font-display"].join(" ")} suppressHydrationWarning>
+    <html lang="en" className={[inter.variable, archivoBlack.variable, "font-sans"].join(" ")} suppressHydrationWarning>
       <head>
         {/* The Spline runtime lazy-loads its wasm from unpkg; warm the
             connection early so the 3D scene starts faster. */}

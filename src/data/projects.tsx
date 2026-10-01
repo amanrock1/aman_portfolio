@@ -310,18 +310,16 @@ const projects: Project[] = [
             VoxTube: AI-Powered Comment Analytics Engine
           </TypographyP>
           <TypographyP className="font-mono ">
-            VoxTube is an enterprise-grade analytics engine designed to extract signal from audience noise in seconds.
+            VoxTube is an analytics application designed to extract structured feedback from audience comments.
             By connecting the YouTube Data API v3 and Reddit Data Ingestion with Google Gemini AI, VoxTube aggregates,
-            classifies, and summarizes audience feedback. It transforms thousands of lines of text into structured,
-            actionable insights (categorized as Praise, Question, Feedback/Bug, or Noise, along with sentiment analysis)
-            to guide content strategy and business growth.
+            classifies, and summarizes audience feedback into categorized insights (Praise, Question, Feedback/Bug, or Noise, along with sentiment analysis).
           </TypographyP>
           <ProjectsLinks live={this.live} repo={this.github} />
           
           <TypographyH3 className="my-4 mt-8">Audience Insight Pipeline</TypographyH3>
           <p className="font-mono mb-2">
-            The processing pipeline seamlessly ingests raw comments from YouTube and Reddit, passes them through the
-            Gemini AI model for classification and summarization, and saves structured reports for sub-50ms repeat loads.
+            The processing pipeline ingests raw comments from YouTube and Reddit, passes them through the
+            Gemini AI model for classification and summarization, and generates structured reports for rapid viewing.
           </p>
           <SlideShow
             images={[

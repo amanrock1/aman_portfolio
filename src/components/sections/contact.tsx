@@ -1,12 +1,5 @@
 "use client";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import ContactForm from "../ContactForm";
 import { config } from "@/data/config";
 import { SectionHeader } from "./section-header";
@@ -14,32 +7,38 @@ import SectionWrapper from "../ui/section-wrapper";
 
 const ContactSection = () => {
   return (
-    <SectionWrapper id="contact" className="min-h-screen max-w-7xl mx-auto ">
-      <SectionHeader id='contact' className="relative mb-14" title={
-        <>
-          LET&apos;S WORK <br />
-          TOGETHER
-        </>} />
-      <div className="grid grid-cols-1 md:grid-cols-2 z-[9999] mx-4">
-        <Card className="w-full max-w-7xl bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl mt-10 md:mt-20">
-          <CardHeader>
-            <CardTitle className="text-4xl">Contact Form</CardTitle>
-            <CardDescription>
-              Please contact me directly at{" "}
-              <a
-                target="_blank"
-                href={`mailto:${config.email}`}
-                className="text-gray-200 cursor-can-hover rounded-lg"
-              >
-                {config.email.replace(/@/g, "(at)")}
-              </a>{" "}
-              or drop your info here.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+    <SectionWrapper id="contact" className="max-w-6xl mx-auto py-24 px-5 md:px-8">
+      <SectionHeader
+        id="contact"
+        title="Contact"
+        desc="Open to software engineering opportunities and collaborations"
+        className="mb-10"
+      />
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+        <div className="md:col-span-4 space-y-4">
+          <p className="text-sm text-zinc-400 leading-relaxed">
+            Have a role, project, or idea? Send a message or email me directly.
+          </p>
+          <div>
+            <div className="text-[10px] uppercase font-mono tracking-widest text-zinc-600 mb-1">Email</div>
+            <a
+              href={`mailto:${config.email}`}
+              className="text-sm text-zinc-200 hover:text-white transition-colors"
+            >
+              {config.email}
+            </a>
+          </div>
+        </div>
+
+        <div className="md:col-span-8">
+          <div className="border border-zinc-800/60 rounded-lg p-6 md:p-8">
+            <h3 className="text-sm font-medium text-zinc-200 mb-1">Send a message</h3>
+            <p className="text-xs text-zinc-500 mb-6">
+              I&apos;ll get back to you as soon as possible.
+            </p>
             <ContactForm />
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </SectionWrapper>
   );

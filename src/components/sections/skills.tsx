@@ -1,65 +1,86 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import React from "react";
 import SectionWrapper from "../ui/section-wrapper";
 import { SectionHeader } from "./section-header";
-import { SKILLS } from "@/data/constants";
-import { cn } from "@/lib/utils";
+import { SKILLS, SkillCategoryGroup } from "@/data/constants";
+import { GraduationCap } from "lucide-react";
 
-/**
- * Tech-stack section.
- *
- * Renders the skills as a real HTML grid.
- */
-const SkillsSection = () => {
+const CATEGORIES: { key: SkillCategoryGroup; title: string }[] = [
+  { key: "languages", title: "Languages" },
+  { key: "software", title: "Frameworks & Tools" },
+  { key: "aiml", title: "AI / ML" },
+  { key: "interactive", title: "Interactive & 3D" },
+];
+
+const AboutSection = () => {
+  const allSkills = Object.values(SKILLS);
+
   return (
     <SectionWrapper
-      id="skills"
-      className="flex w-full min-h-screen flex-col justify-center py-24"
+      id="about"
+      className="flex w-full flex-col justify-center py-24 px-5 md:px-8 max-w-6xl mx-auto"
     >
       <SectionHeader
-        id="skills"
-        title="Tech Stack"
-        desc="Tools I build with"
-        className="static mb-14"
+        id="about"
+        title="About"
+        desc="Background, education, and core technologies"
+        className="mb-10"
       />
-      <ul className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-3 px-4 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5">
-        {Object.values(SKILLS).map((skill) => (
-          <li
-            key={skill.name}
-            style={{ "--skill": skill.color } as CSSProperties}
-            className={cn(
-              "pointer-events-auto",
-              "group relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl p-5",
-              "border border-border/60 bg-secondary/20 backdrop-blur-sm",
-              "transition-[transform,border-color,background-color,box-shadow] duration-300",
-              "hover:-translate-y-1 hover:border-[var(--skill)] hover:bg-secondary/40",
-              "hover:shadow-[0_10px_40px_-12px_var(--skill)]"
-            )}
-          >
-            {/* per-skill colored glow */}
-            <span
-              aria-hidden
-              style={{ background: "var(--skill)" }}
-              className="pointer-events-none absolute -top-6 h-16 w-16 rounded-full opacity-25 blur-2xl transition-opacity duration-300 group-hover:opacity-70"
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={skill.icon}
-              alt={skill.label}
-              width={44}
-              height={44}
-              loading="lazy"
-              className="relative size-9 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110 md:size-11"
-            />
-            <span className="relative text-center text-xs font-medium text-foreground/80 transition-colors group-hover:text-foreground md:text-sm">
-              {skill.label}
-            </span>
-          </li>
-        ))}
-      </ul>
+
+      {/* Bio + Education */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-14">
+        <div className="md:col-span-8">
+          <p className="text-sm text-zinc-300 leading-relaxed mb-3">
+            I&apos;m a software developer focused on full-stack development and AI/ML. I enjoy turning ideas into working products, from AI-powered applications and web platforms to interactive 3D experiences.
+          </p>
+          <p className="text-xs text-zinc-500 leading-relaxed">
+            My academic background in Gaming Technology gives me strong spatial, WebGL, and real-time graphics capabilities as a technical differentiator.
+          </p>
+        </div>
+
+        <div className="md:col-span-4 border-l border-zinc-800 pl-6">
+          <div className="flex items-center gap-2 text-zinc-500 mb-2">
+            <GraduationCap className="w-4 h-4" />
+            <span className="text-[10px] font-mono uppercase tracking-widest">Education</span>
+          </div>
+          <div className="text-sm font-medium text-zinc-200">B.Tech Gaming Technology</div>
+          <div className="text-xs text-zinc-500 mt-0.5">VIT Bhopal University</div>
+        </div>
+      </div>
+
+      {/* Tech Stack — compact grouped text lists */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {CATEGORIES.map((cat) => {
+          const skills = allSkills.filter((s) => s.categoryGroup === cat.key);
+          if (skills.length === 0) return null;
+
+          return (
+            <div key={cat.key}>
+              <h4 className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-3 pb-2 border-b border-zinc-800/60">
+                {cat.title}
+              </h4>
+              <ul className="space-y-1.5">
+                {skills.map((skill) => (
+                  <li key={skill.name} className="flex items-center gap-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={skill.icon}
+                      alt=""
+                      width={14}
+                      height={14}
+                      className="size-3.5 object-contain opacity-60"
+                    />
+                    <span className="text-xs text-zinc-300">{skill.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
     </SectionWrapper>
   );
 };
 
-export default SkillsSection;
+export default AboutSection;
