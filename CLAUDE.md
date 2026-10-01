@@ -132,6 +132,15 @@ Commands:
 
 How to verify phone layout (headless Edge can't go below ~500px wide): put a temporary same-origin HTML file in `public/` that loads pages in `390px` iframes and reports `getBoundingClientRect().right` of elements inside `main` (see git history of this file's session for the script), run it with `msedge --headless=new --dump-dom`, **then delete the file**. Never commit it. `next.config.mjs` sets `X-Frame-Options: SAMEORIGIN`, so only same-origin framing works.
 
+## Social sharing preview (WhatsApp, LinkedIn, X)
+
+- Metadata is in `src/app/layout.tsx`, fed by `src/data/config.ts` (`title`, `description`, `ogImage`, `ogImageAlt`). Title: "Aman Kumar Prabhat | Full-Stack & AI Developer".
+- The image is `public/assets/seo/og-portfolio-2026.jpg` (1200x630, about 115KB; keep it under about 300KB or WhatsApp may skip it). `og:image` and `twitter:image` are built as **absolute** URLs from `config.site`.
+- **Social apps cache previews by image URL.** When you change the image, save it under a NEW file name and update `config.ogImage`; reusing the name keeps the old preview. (`next.config.mjs` also marks `/assets/*` as immutable for a year.)
+- The original template image `public/assets/seo/og-image.png` showed another person's name ("Naresh Khatri"). It is no longer referenced; don't point anything at it.
+- The preview image was made from an HTML page rendered in headless Edge at 1200x630 (paper background, name, stamp, three project screenshots). To change it, redo that render and export a JPEG with sharp.
+- After deploying, a chat app may still show the old preview for a while: re-share the link with a throwaway query (`?v=2`) or use Facebook's Sharing Debugger / LinkedIn's Post Inspector to refresh.
+
 ## Deployment and git
 
 - Vercel project `aman_portfolio` is linked to the GitHub repo. A push to `main` builds and deploys production; other branches get preview URLs only.

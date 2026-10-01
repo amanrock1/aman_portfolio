@@ -7,10 +7,14 @@ export const config = {
   tagline: "Full-stack developer building AI-powered products.",
   education: "B.Tech CSE · VIT Bhopal",
   status: "Open to internships & jobs",
-  title: "Aman Kumar Prabhat · Full-stack & AI developer",
+  // Social sharing (Open Graph / Twitter). WhatsApp, LinkedIn and X read these.
+  title: "Aman Kumar Prabhat | Full-Stack & AI Developer",
   description:
-    "Portfolio of Aman Kumar Prabhat, a B.Tech CSE student at VIT Bhopal building full-stack and AI-powered products.",
+    "B.Tech CSE student at VIT Bhopal building full-stack and AI-powered products. Explore case studies, live coding stats and the tools behind each project.",
   site: "https://amankumarprabhat.vercel.app",
+  // 1200x630. Social apps cache previews by URL, so give a NEW file name whenever the image changes.
+  ogImage: "/assets/seo/og-portfolio-2026.jpg",
+  ogImageAlt: "Aman Kumar Prabhat, full-stack and AI developer, with screenshots of OpenSource Buddy, 360 Campus Tour and VoxTube",
   email: "amanprabhat438@gmail.com",
   resume: "/Aman_Kumar_Resume_Update.pdf",
   handles: {
