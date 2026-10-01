@@ -1,42 +1,29 @@
-const config = {
-  title: "Aman Kumar Prabhat | Software Developer · AI/ML",
-  description: {
-    long: "Portfolio of Aman Kumar Prabhat — Software Developer focused on full-stack development, AI/ML applications, and interactive digital experiences.",
-    short:
-      "Aman Kumar Prabhat — Software Developer · AI/ML. Building software, AI-powered applications, and interactive digital experiences.",
-  },
-  keywords: [
-    "Aman Kumar Prabhat",
-    "Aman Prabhat",
-    "Software Developer",
-    "Software Engineer",
-    "AI/ML",
-    "Full-Stack",
-    "TypeScript",
-    "React",
-    "Next.js",
-    "Node.js",
-    "Python",
-    "C++",
-    "Three.js",
-    "WebGL",
-    "VIT Bhopal",
-  ],
-  author: "Aman Kumar Prabhat",
+// Single source of truth for personal facts. Everything here is verified
+// against the resume, GitHub and the platforms' public profiles. Do not add
+// claims that can't be checked.
+export const config = {
+  name: "Aman Kumar Prabhat",
+  wordmark: "amanprabhat",
+  tagline: "Full-stack developer building AI-powered products.",
+  education: "B.Tech CSE · VIT Bhopal",
+  status: "Open to internships & jobs",
+  title: "Aman Kumar Prabhat · Full-stack & AI developer",
+  description:
+    "Portfolio of Aman Kumar Prabhat, a B.Tech CSE student at VIT Bhopal building full-stack and AI-powered products.",
+  site: "https://amankumarprabhat.vercel.app",
   email: "amanprabhat438@gmail.com",
-  site: "https://amanprabhat.dev",
-
-  // for github stars button
-  githubUsername: "amanrock1",
-  githubRepo: "aman_portfolio",
-
-  get ogImg() {
-    return this.site + "/assets/seo/og-image.png";
+  resume: "/Aman_Kumar_Resume_Update.pdf",
+  handles: {
+    github: "amanrock1",
+    leetcode: "leetcode_kumar",
+    codeforces: "Amankumar18",
+    codechef: "codechef_kumar",
   },
   social: {
-    instagram: "https://www.instagram.com/aman_kumar._.18/",
-    linkedin: "https://www.linkedin.com/in/aman-kumar-prabhat-b75735325",
     github: "https://github.com/amanrock1",
+    linkedin: "https://www.linkedin.com/in/aman-kumar-prabhat-b75735325",
+    leetcode: "https://leetcode.com/u/leetcode_kumar/",
+    codeforces: "https://codeforces.com/profile/Amankumar18",
+    codechef: "https://www.codechef.com/users/codechef_kumar",
   },
-};
-export { config };
+} as const;
