@@ -3,9 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  /* Colour tokens: space-separated RGB so Tailwind's /opacity modifier works. */
+  :root {
+    --paper: 244 239 230; /* #F4EFE6 */
+    --paper-raised: 251 248 242; /* #FBF8F2 */
+    --paper-sunk: 236 230 218; /* #ECE6DA */
+    --hairline: 217 209 194; /* #D9D1C2 */
+    --ink: 31 42 55; /* #1F2A37 */
+    --ink-soft: 91 100 114; /* #5B6472 */
+    --ink-faint: 138 143 152; /* #8A8F98 */
+    --vermilion: 200 69 43; /* #C8452B */
+    --vermilion-dark: 166 45 21; /* #A62D15 */
+    --signal: 47 111 94; /* #2F6F5E */
+    --mustard: 217 164 65; /* #D9A441 */
+    --tape: 232 223 201; /* #E8DFC9 */
+    --shadow: 31 42 55; /* hard letterpress shadow */
+    --selection: 237 179 164;
+  }
+
   html {
-    background: #f4efe6;
-    color: #1f2a37;
+    background: rgb(var(--paper));
+    color: rgb(var(--ink));
     -webkit-font-smoothing: antialiased;
   }
 
@@ -14,13 +32,19 @@
   }
 
   ::selection {
-    background: #edb3a4;
-    color: #1f2a37;
+    background: rgb(var(--selection));
+    color: rgb(var(--ink));
   }
 
   :focus-visible {
-    outline: 2px solid #c8452b;
+    outline: 2px solid rgb(var(--vermilion));
     outline-offset: 2px;
+  }
+
+  /* Phones: never let one wide child push the whole page sideways. */
+  html,
+  body {
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -67,15 +91,11 @@
 
   /* Translucent paper tape holding cards and screenshots. */
   .tape {
-    @apply pointer-events-none absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 -rotate-2 bg-[#e8dfc9]/80 shadow-[0_1px_0_rgba(31,42,55,0.08)];
+    @apply pointer-events-none absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 -rotate-2 bg-tape/80 shadow-[0_1px_0_rgb(var(--shadow)/0.08)];
   }
 
   .hatch {
-    background-image: repeating-linear-gradient(
-      45deg,
-      #ece6da 0 10px,
-      #f4efe6 10px 20px
-    );
+    background-image: repeating-linear-gradient(45deg, rgb(var(--paper-sunk)) 0 10px, rgb(var(--paper)) 10px 20px);
   }
 
   .rule {

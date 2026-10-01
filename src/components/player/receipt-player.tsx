@@ -1,11 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { spotifyPlaylist } from "@/content/about";
 import { cn } from "@/lib/utils";
 import { NextIcon, PauseIcon, PlayIcon, PrevIcon, ShuffleIcon } from "../icons";
 import { ExternalLink, MarginNote } from "../kit";
 import { Equalizer } from "./mini-player";
-import { SpotifyEngine } from "./spotify-engine";
 import { usePlayer } from "./player-context";
 
 function asciiBar(progress: number, width = 16) {
@@ -15,10 +15,24 @@ function asciiBar(progress: number, width = 16) {
 
 /** Terminal-style player printed on a paper receipt. */
 export function ReceiptPlayer() {
-  const { tracks, index, playing, progress, mode, engineReady, toggle, next, prev, shuffle, play } = usePlayer();
+  const { tracks, index, playing, progress, mode, wantEmbed, activate, setSlot, toggle, next, prev, shuffle, play } = usePlayer();
   const track = tracks[index];
   const hasAudio = mode !== "placeholder";
-  const waitingForSpotify = mode === "spotify" && !engineReady;
+  const [embedLoading, setEmbedLoading] = useState(false);
+
+  // Opening this page loads the Spotify embed (it stays loaded while you browse).
+  useEffect(() => {
+    if (mode === "spotify") activate();
+    return () => setSlot(null);
+  }, [mode, activate, setSlot]);
+
+  // If the embed hasn't appeared after a few seconds, say so (ad blockers block it).
+  useEffect(() => {
+    if (!wantEmbed) return;
+    const t = setTimeout(() => setEmbedLoading(true), 6000);
+    return () => clearTimeout(t);
+  }, [wantEmbed]);
+  const waitingForSpotify = mode === "spotify" && embedLoading && !playing && progress === 0;
 
   const keys = [
     { label: "prev", Icon: PrevIcon, onClick: prev },
@@ -28,13 +42,13 @@ export function ReceiptPlayer() {
   ];
 
   return (
-    <div className="grid gap-10 lg:grid-cols-12">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
       <section className="lg:col-span-5">
         <MarginNote className="mb-4">press play</MarginNote>
         {/* Receipt with zig-zag torn edges */}
-        <div className="relative bg-paper-raised px-6 py-8 font-mono text-[13px] text-ink drop-shadow-[3px_3px_0_#1F2A37]">
-          <span aria-hidden="true" className="absolute inset-x-0 -top-[7px] h-2 bg-[linear-gradient(135deg,#FBF8F2_50%,transparent_50%),linear-gradient(-135deg,#FBF8F2_50%,transparent_50%)] bg-[length:14px_14px] [background-position:0_100%]" />
-          <span aria-hidden="true" className="absolute inset-x-0 -bottom-[7px] h-2 bg-[linear-gradient(45deg,#FBF8F2_50%,transparent_50%),linear-gradient(-45deg,#FBF8F2_50%,transparent_50%)] bg-[length:14px_14px]" />
+        <div className="relative bg-paper-raised px-6 py-8 font-mono text-[13px] text-ink drop-shadow-[3px_3px_0_rgb(var(--shadow))]">
+          <span aria-hidden="true" className="absolute inset-x-0 -top-[7px] h-2 bg-[linear-gradient(135deg,rgb(var(--paper-raised))_50%,transparent_50%),linear-gradient(-135deg,rgb(var(--paper-raised))_50%,transparent_50%)] bg-[length:14px_14px] [background-position:0_100%]" />
+          <span aria-hidden="true" className="absolute inset-x-0 -bottom-[7px] h-2 bg-[linear-gradient(45deg,rgb(var(--paper-raised))_50%,transparent_50%),linear-gradient(-45deg,rgb(var(--paper-raised))_50%,transparent_50%)] bg-[length:14px_14px]" />
           <p className="text-ink-faint">soundtrack.log</p>
           <p className="mt-4">
             <span className="text-vermilion">$</span> {playing ? "play" : "pause"}
@@ -51,7 +65,7 @@ export function ReceiptPlayer() {
           <p className="mt-1 whitespace-nowrap text-vermilion">{asciiBar(progress)}</p>
           <Equalizer active={playing} className="mt-4 text-ink" />
           {!hasAudio && <p className="mt-4 border-t border-dashed border-hairline pt-3 text-[11px] text-ink-faint">tracklist coming soon: these are placeholders</p>}
-          {waitingForSpotify && <p className="mt-4 border-t border-dashed border-hairline pt-3 text-[11px] text-ink-faint">loading spotify… if this stays, an ad blocker may be blocking the player</p>}
+          {waitingForSpotify && <p className="mt-4 border-t border-dashed border-hairline pt-3 text-[11px] text-ink-faint">press play. if nothing starts, an ad blocker may be blocking Spotify</p>}
         </div>
 
         <div className="mt-6 grid grid-cols-4 gap-3">
@@ -85,7 +99,8 @@ export function ReceiptPlayer() {
         </ol>
         {mode === "spotify" && (
           <div className="mt-6">
-            <SpotifyEngine />
+            {/* The persistent <SpotifyHost> positions itself over this slot while you're on this page. */}
+            <div ref={setSlot} className="h-[152px] w-full" aria-hidden="true" />
             <p className="mt-2 font-mono text-[11px] text-ink-faint">Not logged into Spotify? You&apos;ll hear 30-second previews. Log in inside the player for full tracks.</p>
           </div>
         )}

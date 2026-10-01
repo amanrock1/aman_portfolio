@@ -71,7 +71,7 @@ export function LetterForm() {
           minLength={5}
           maxLength={5000}
           rows={6}
-          className={`${field} resize-y bg-[repeating-linear-gradient(transparent,transparent_31px,#D9D1C2_31px,#D9D1C2_32px)] leading-8`}
+          className={`${field} resize-y bg-[repeating-linear-gradient(transparent,transparent_31px,rgb(var(--hairline))_31px,rgb(var(--hairline))_32px)] leading-8`}
         />
       </label>
       {/* Honeypot, hidden from people */}

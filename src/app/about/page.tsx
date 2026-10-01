@@ -15,9 +15,9 @@ export default function AboutPage() {
     <>
       <PageHeader eyebrow="05 / About" title="About" />
 
-      <div className="grid gap-6 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Intro */}
-        <section className="press relative grid gap-6 p-6 sm:grid-cols-[180px_1fr] lg:col-span-8">
+        <section className="press relative grid grid-cols-1 gap-6 p-6 sm:grid-cols-[180px_1fr] lg:col-span-8">
           <span className="tape" />
           <div>
             <div className="hatch grid aspect-[4/5] place-items-center rounded border border-ink">
@@ -47,7 +47,7 @@ export default function AboutPage() {
         {/* Hackathons as stamped tickets */}
         <section className="press p-6 lg:col-span-6">
           <p className="label mb-4">Hackathons</p>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {hackathons.map((h) => (
               <li key={h.name} className="rounded border border-dashed border-ink p-3">
                 <span className={`font-mono text-[11px] uppercase tracking-[0.08em] ${h.result === "Final rounds" ? "text-vermilion" : "text-ink-soft"}`}>{h.result}</span>

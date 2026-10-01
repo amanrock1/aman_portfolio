@@ -47,7 +47,7 @@ export default async function ArenaPage() {
       <PageHeader eyebrow="04 / Coding Arena" title="Coding Arena" intro="Live numbers from LeetCode, Codeforces, CodeChef and GitHub, refreshed every few hours." />
 
       {/* Row 1: total + platform jump tiles */}
-      <div className="grid gap-6 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="press relative p-6 lg:col-span-7">
           <span className="tape" />
           <span className="stamp">live data</span>
@@ -66,7 +66,7 @@ export default async function ArenaPage() {
       </div>
 
       {/* Row 2 */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card id="leetcode" ticket="#01" name="LeetCode" handle={config.handles.leetcode} href={config.social.leetcode}>
           {lc ? (
             <>
@@ -119,7 +119,7 @@ export default async function ArenaPage() {
       </div>
 
       {/* Row 3 */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-12">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
         <Card id="codechef" ticket="#03" name="CodeChef" handle={config.handles.codechef} href={config.social.codechef} className="lg:col-span-5">
           {cc ? (
             <>

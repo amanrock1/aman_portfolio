@@ -19,7 +19,7 @@ export function Toolbox() {
   const visibleGroups = group === "All" ? toolGroups : [group];
 
   return (
-    <div className="grid gap-8 lg:grid-cols-12">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
       <div className="lg:col-span-8">
         <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0" role="toolbar" aria-label="Filter tools">
           {(["All", ...toolGroups] as const).map((g) => (

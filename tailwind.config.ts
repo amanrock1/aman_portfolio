@@ -1,7 +1,9 @@
 import type { Config } from "tailwindcss";
 
-// "Paper & Ink" design tokens. Values mirror the Stitch design system
-// (project 4009013806429311034) so code and designs stay in sync.
+// "Paper & Ink" design tokens. Colours are CSS variables (space-separated RGB) defined in
+// globals.css, so every utility and the `/opacity` modifier work. Values mirror the Stitch design system (project 4009013806429311034).
+const rgb = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
@@ -13,34 +15,31 @@ const config = {
       },
       colors: {
         paper: {
-          DEFAULT: "#F4EFE6",
-          raised: "#FBF8F2",
-          sunk: "#ECE6DA",
+          DEFAULT: rgb("paper"),
+          raised: rgb("paper-raised"),
+          sunk: rgb("paper-sunk"),
         },
-        hairline: "#D9D1C2",
+        hairline: rgb("hairline"),
         ink: {
-          DEFAULT: "#1F2A37",
-          soft: "#5B6472",
-          faint: "#8A8F98",
+          DEFAULT: rgb("ink"),
+          soft: rgb("ink-soft"),
+          faint: rgb("ink-faint"),
         },
         vermilion: {
-          DEFAULT: "#C8452B",
-          dark: "#A62D15",
-          100: "#F6DCD4",
-          200: "#EDB3A4",
-          300: "#E08A74",
-          400: "#D46448",
+          DEFAULT: rgb("vermilion"),
+          dark: rgb("vermilion-dark"),
         },
-        signal: "#2F6F5E",
-        mustard: "#D9A441",
+        signal: rgb("signal"),
+        mustard: rgb("mustard"),
+        tape: rgb("tape"),
       },
       borderRadius: {
         DEFAULT: "4px",
       },
       boxShadow: {
-        press: "3px 3px 0 0 #1F2A37",
-        "press-sm": "2px 2px 0 0 #1F2A37",
-        "press-in": "1px 1px 0 0 #1F2A37",
+        press: "3px 3px 0 0 rgb(var(--shadow))",
+        "press-sm": "2px 2px 0 0 rgb(var(--shadow))",
+        "press-in": "1px 1px 0 0 rgb(var(--shadow))",
       },
       maxWidth: {
         page: "1440px",

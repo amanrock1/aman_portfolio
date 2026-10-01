@@ -1,6 +1,7 @@
 import type { HeatmapDay } from "@/lib/stats";
 
-const RAMP = ["#ECE6DA", "#F6DCD4", "#EDB3A4", "#E08A74", "#C8452B"];
+// Heat levels: empty cell, then the accent at rising opacity. Works on light and dark paper.
+const RAMP = ["rgb(var(--paper-sunk))", "rgb(var(--vermilion) / 0.25)", "rgb(var(--vermilion) / 0.5)", "rgb(var(--vermilion) / 0.75)", "rgb(var(--vermilion))"];
 
 /** 53-week calendar heatmap (Sunday-first columns) ending today, vermilion intensity. */
 export function Heatmap({ days, label }: { days: HeatmapDay[]; label: string }) {
@@ -107,16 +108,16 @@ export function RatingLine({ points }: { points: { contest: string; rating: numb
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={`Contest rating: ${ratings.join(", ")}`}>
       {ticks.map((t) => (
         <g key={t}>
-          <line x1={pad.l} x2={W - pad.r} y1={y(t)} y2={y(t)} stroke="#D9D1C2" strokeDasharray="3 4" />
+          <line x1={pad.l} x2={W - pad.r} y1={y(t)} y2={y(t)} stroke="rgb(var(--hairline))" strokeDasharray="3 4" />
           <text x={pad.l - 8} y={y(t) + 4} textAnchor="end" className="fill-ink-faint font-mono text-[10px]">
             {t}
           </text>
         </g>
       ))}
-      <polyline fill="none" stroke="#C8452B" strokeWidth={2} points={points.map((p, i) => `${x(i)},${y(p.rating)}`).join(" ")} />
+      <polyline fill="none" stroke="rgb(var(--vermilion))" strokeWidth={2} points={points.map((p, i) => `${x(i)},${y(p.rating)}`).join(" ")} />
       {points.map((p, i) => (
         <g key={i}>
-          <circle cx={x(i)} cy={y(p.rating)} r={5} fill="#FBF8F2" stroke="#C8452B" strokeWidth={2}>
+          <circle cx={x(i)} cy={y(p.rating)} r={5} fill="rgb(var(--paper-raised))" stroke="rgb(var(--vermilion))" strokeWidth={2}>
             <title>{`${p.contest}: ${p.rating}`}</title>
           </circle>
           <text x={x(i)} y={y(p.rating) - 12} textAnchor="middle" className="fill-ink font-mono text-[11px]">

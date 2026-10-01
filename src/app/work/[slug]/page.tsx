@@ -29,7 +29,7 @@ function Section({ section, index }: { section: CaseStudySection; index: number 
       return (
         <section>
           <SectionLabel index={n}>{section.title}</SectionLabel>
-          <ol className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {section.steps.map((s, i) => (
               <li key={s.label} className="press relative flex flex-col p-4">
                 <span className="font-mono text-[12px] text-vermilion">{String(i + 1).padStart(2, "0")}</span>
@@ -80,7 +80,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <ArrowLeft /> Work / {p.title}
       </Link>
 
-      <div className="mt-6 grid gap-10 lg:grid-cols-12">
+      <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-12">
         {/* Left: sticky problem column */}
         <header className="lg:sticky lg:top-10 lg:col-span-5 lg:self-start">
           <p className="font-mono text-[12px] text-ink-soft">{cs.meta}</p>
@@ -110,7 +110,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
         {/* Right: visuals + sections */}
         <div className="space-y-12 lg:col-span-7">
-          <div className={cs.screenshots.length > 1 ? "grid gap-8 sm:grid-cols-2" : ""}>
+          <div className={cs.screenshots.length > 1 ? "grid grid-cols-1 gap-8 sm:grid-cols-2" : ""}>
             {cs.screenshots.map((s, i) => (
               <ScreenshotFrame key={s.caption} shot={s} priority={i === 0} tilt={i % 2 ? 1 : -1} />
             ))}

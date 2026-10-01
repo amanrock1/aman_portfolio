@@ -18,7 +18,7 @@ export default function ContactPage() {
       <PageHeader eyebrow="06 / Contact" title="Let's talk." />
 
       {/* Postcard: two halves split by a hairline on desktop */}
-      <div className="press grid bg-paper-raised lg:grid-cols-2">
+      <div className="press grid grid-cols-1 bg-paper-raised lg:grid-cols-2">
         <section className="p-6 sm:p-8 lg:border-r lg:border-hairline">
           <span className="stamp -rotate-2">
             <span className="h-2 w-2 rounded-full bg-signal" />

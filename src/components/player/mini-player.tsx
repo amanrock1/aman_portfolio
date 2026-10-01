@@ -19,13 +19,13 @@ export function Equalizer({ active, className }: { active: boolean; className?: 
   );
 }
 
-/** Receipt-style mini player. `compact` is the pill above the mobile tab bar. */
+/**
+ * Receipt-style mini player. `compact` is the pill above the mobile tab bar.
+ * The round button plays/pauses right here, on any page. The song name opens the full player.
+ */
 export function MiniPlayer({ compact = false }: { compact?: boolean }) {
-  const { tracks, index, playing, toggle, mode, engineReady } = usePlayer();
+  const { tracks, index, playing, toggle } = usePlayer();
   const track = tracks[index];
-  // In Spotify mode the embed lives on /soundtrack, so elsewhere the button opens that page.
-  const needsPage = mode === "spotify" && !engineReady;
-  const buttonClass = "grid h-8 w-8 shrink-0 place-items-center rounded-full border border-ink text-ink transition-colors hover:bg-ink hover:text-paper";
 
   return (
     <div
@@ -34,16 +34,15 @@ export function MiniPlayer({ compact = false }: { compact?: boolean }) {
         compact ? "rounded-full px-3 py-1.5 shadow-press-sm" : "rounded px-3 py-2.5 shadow-press-sm",
       )}
     >
-      {needsPage ? (
-        <Link href="/soundtrack" aria-label="Open the soundtrack player" className={buttonClass}>
-          <PlayIcon />
-        </Link>
-      ) : (
-        <button type="button" onClick={toggle} aria-label={playing ? "Pause" : "Play"} className={buttonClass}>
-          {playing ? <PauseIcon /> : <PlayIcon />}
-        </button>
-      )}
-      <Link href="/soundtrack" className="min-w-0 flex-1 truncate text-ink-soft hover:text-ink">
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? "Pause" : "Play"}
+        className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-ink text-ink transition-colors hover:bg-ink hover:text-paper"
+      >
+        {playing ? <PauseIcon /> : <PlayIcon />}
+      </button>
+      <Link href="/soundtrack" aria-label="Open the soundtrack player" className="min-w-0 flex-1 truncate text-ink-soft hover:text-ink">
         <span className="text-vermilion">$</span> {playing ? "now playing" : "play"}{" "}
         <span className="text-ink">
           {track.title} · {track.artist}

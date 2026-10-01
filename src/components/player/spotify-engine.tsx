@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { usePlayer } from "./player-context";
 
 // Spotify iFrame API: https://developer.spotify.com/documentation/embeds/references/iframe-api
-// The embed stays visible (compact) on /soundtrack: our receipt buttons drive it, and
-// Spotify's own controls remain available as the fallback and for logging in.
+//
+// ONE embed lives for the whole visit, so play/pause from the mini-player works on every page.
+// On /soundtrack it is positioned over the page's slot, fully visible. Elsewhere it stays in
+// the viewport but clipped to nothing, because lazy-loaded iframes only load near the viewport.
+// Spotify's own controls remain available on /soundtrack for logging in and as the fallback.
 
 type SpotifyController = {
   loadUri: (uri: string) => void;
@@ -33,7 +36,7 @@ function loadApi() {
     s.src = SCRIPT;
     s.async = true;
     s.onerror = () => {
-      apiPromise = null; // allow a retry on the next visit
+      apiPromise = null; // allow a retry on the next tap
       reject(new Error("Spotify embed script failed to load"));
     };
     document.body.appendChild(s);
@@ -41,15 +44,19 @@ function loadApi() {
   return apiPromise;
 }
 
-export function SpotifyEngine() {
-  const { tracks, registerEngine, reportPlayback } = usePlayer();
+const HEIGHT = 152;
+
+export function SpotifyHost() {
+  const { tracks, mode, wantEmbed, slot, registerEngine, reportPlayback } = usePlayer();
   const host = useRef<HTMLDivElement>(null);
   const report = useRef(reportPlayback);
   report.current = reportPlayback;
 
+  // Create the controller once, the first time the embed is wanted.
   useEffect(() => {
+    if (mode !== "spotify" || !wantEmbed || !host.current) return;
     const first = tracks.find((t) => t.spotifyUri)?.spotifyUri;
-    if (!first || !host.current) return;
+    if (!first) return;
     let controller: SpotifyController | null = null;
     let cancelled = false;
 
@@ -59,7 +66,7 @@ export function SpotifyEngine() {
         // The API replaces the element it is given, so give it a fresh child.
         const mount = document.createElement("div");
         host.current.appendChild(mount);
-        api.createController(mount, { uri: first, width: "100%", height: 152 }, (c) => {
+        api.createController(mount, { uri: first, width: "100%", height: HEIGHT }, (c) => {
           if (cancelled) return c.destroy();
           controller = c;
           c.addListener("playback_update", (e) => report.current({ paused: e.data.isPaused, position: e.data.position, duration: e.data.duration }));
@@ -79,7 +86,41 @@ export function SpotifyEngine() {
       registerEngine(null);
       controller?.destroy();
     };
-  }, [tracks, registerEngine]);
+  }, [mode, wantEmbed, tracks, registerEngine]);
 
-  return <div ref={host} className="min-h-[152px] w-full" aria-label="Spotify player" />;
+  // Show the embed over the page slot on /soundtrack; hide it (but keep it loaded) elsewhere.
+  useLayoutEffect(() => {
+    const el = host.current;
+    if (!el) return;
+    if (!slot) {
+      Object.assign(el.style, { position: "fixed", left: "0px", bottom: "0px", top: "auto", width: "300px", height: `${HEIGHT}px`, clipPath: "inset(100%)", pointerEvents: "none", opacity: "0" });
+      return;
+    }
+    const place = () => {
+      const r = slot.getBoundingClientRect();
+      Object.assign(el.style, {
+        position: "absolute",
+        left: `${r.left + window.scrollX}px`,
+        top: `${r.top + window.scrollY}px`,
+        bottom: "auto",
+        width: `${r.width}px`,
+        height: `${HEIGHT}px`,
+        clipPath: "none",
+        pointerEvents: "auto",
+        opacity: "1",
+      });
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    ro.observe(slot);
+    ro.observe(document.documentElement);
+    window.addEventListener("resize", place);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", place);
+    };
+  }, [slot, wantEmbed]);
+
+  if (mode !== "spotify" || !wantEmbed) return null;
+  return <div ref={host} className="z-20" aria-label="Spotify player" />;
 }

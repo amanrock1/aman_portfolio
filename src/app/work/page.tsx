@@ -16,7 +16,7 @@ export default function WorkPage() {
         <MarginNote>start with these three</MarginNote>
       </PageHeader>
 
-      <section aria-label="Case studies" className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <section aria-label="Case studies" className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
         {caseStudies.map((p) => (
           <Link key={p.slug} href={`/work/${p.slug}`} className="press-interactive group relative flex flex-col p-5">
             <span className="absolute -right-2 -top-3 rotate-3 rounded border border-dashed border-vermilion bg-paper px-2 py-0.5 font-mono text-[11px] text-vermilion">case study</span>
@@ -36,7 +36,7 @@ export default function WorkPage() {
 
       <section aria-label="More projects" className="mt-14">
         <h2 className="label mb-5">More projects</h2>
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {others.map((p) => (
             <article key={p.slug} className="press flex flex-col p-4">
               <p className="font-mono text-[12px] text-ink-faint">{formatMonth(p.date)}</p>

@@ -21,7 +21,7 @@ export default async function HomePage() {
   const [leetcode, codeforces, github] = await Promise.all([getLeetCode(), getCodeforces(), getGitHub()]);
 
   return (
-    <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
       {/* Zone 1: who */}
       <section className="lg:col-span-5">
         <span className="stamp">
