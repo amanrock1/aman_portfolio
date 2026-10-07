@@ -54,11 +54,9 @@ export function ShipLog({ limit, compact = false }: { limit?: number; compact?: 
                   {compact && <p className="mb-4 text-[15px] leading-relaxed text-ink-soft">{p.summary}</p>}
                   <ScreenshotFrame shot={p.cover ?? { caption: "screenshot" }} className="max-w-xl" />
                   <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
-                    {p.caseStudy && (
-                      <Link href={`/work/${p.slug}`} className="inline-flex items-center gap-1 font-mono text-[13px] text-vermilion hover:underline">
-                        Read case study <ArrowRight />
-                      </Link>
-                    )}
+                    <Link href={`/work/${p.slug}`} className="inline-flex items-center gap-1 font-mono text-[13px] text-vermilion hover:underline">
+                      {p.caseStudy ? "Read case study" : "System design"} <ArrowRight />
+                    </Link>
                     {p.live && <ExternalLink href={p.live}>Live</ExternalLink>}
                     <ExternalLink href={p.github}>GitHub</ExternalLink>
                     {p.event && <span className="font-mono text-[12px] text-signal">{p.event}</span>}

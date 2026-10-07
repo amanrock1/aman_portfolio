@@ -43,7 +43,10 @@ export default function WorkPage() {
               <h3 className="mt-1 font-serif text-[22px] leading-tight text-ink">{p.title}</h3>
               <p className="mt-2 flex-1 text-[14px] leading-relaxed text-ink-soft">{p.summary}</p>
               <Tags items={p.tags} className="mt-3" />
-              <div className="mt-3 flex gap-4">
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                <Link href={`/work/${p.slug}`} className="inline-flex items-center gap-1 font-mono text-[13px] text-vermilion hover:underline">
+                  System design <ArrowRight />
+                </Link>
                 {p.live && <ExternalLink href={p.live}>Live</ExternalLink>}
                 <ExternalLink href={p.github}>GitHub</ExternalLink>
               </div>

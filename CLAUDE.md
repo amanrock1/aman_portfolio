@@ -10,6 +10,12 @@ The personal portfolio of **Aman Kumar Prabhat**, a B.Tech CSE student at VIT Bh
 - Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 3, Zod, Resend. No UI library and no chart library.
 - **Status: live.** https://amankumarprabhat.vercel.app is deployed from the `main` branch of https://github.com/amanrock1/aman_portfolio. Pushing to `main` auto-deploys to production through Vercel.
 
+## Work in progress: "System design" feature (started 2026-10-05, NOT pushed)
+
+The owner asked for an **interactive, live system-design section on every project** (type data in, watch a paper slip travel through the architecture, with a receipt ledger of what each stage did). It must be creative, honest (a labelled browser simulation of real, ported logic) and **must not be committed or pushed until the owner has checked it on localhost**. All 7 projects need it, so LittleBits, Cyber Runner 2D and SquadUp also need their own `/work/[slug]` pages.
+
+**Status: all 7 designs are built and pass headless tests; waiting for the owner to review on localhost. Full context, the research on how each repo really works, the design decisions, the file plan and the verification checklist are in [`docs/SYSTEM-DESIGN-HANDOFF.md`](docs/SYSTEM-DESIGN-HANDOFF.md). Read it before touching this feature, and update its "Status" section as you build.**
+
 ## Rules set by the owner (these override everything else)
 
 1. **Never invent content.** No awards, rankings, metrics, user counts, latencies, file sizes, versions, job experience, locations or "verified" badges unless the fact is in `src/data/config.ts`, `src/content/*`, or fetched live.
