@@ -2,28 +2,41 @@
 
 import { useState } from "react";
 import { config } from "@/data/config";
-import { CheckIcon, CopyIcon } from "./icons";
+import { ArrowRight, ArrowUpRight, CheckIcon, CopyIcon } from "./icons";
 
-export function CopyEmail() {
+export function InboxCard() {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="flex items-stretch overflow-hidden rounded border border-ink bg-paper-raised shadow-press">
-      <a href={`mailto:${config.email}`} className="min-w-0 flex-1 truncate px-4 py-3 font-mono text-[14px] text-ink hover:text-vermilion sm:text-[16px]">
-        {config.email}
-      </a>
-      <button
-        type="button"
-        onClick={async () => {
-          await navigator.clipboard.writeText(config.email);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 1800);
-        }}
-        className="flex shrink-0 items-center gap-2 border-l border-ink px-4 font-mono text-[12px] hover:bg-ink hover:text-paper"
-        aria-live="polite"
-      >
-        {copied ? <CheckIcon /> : <CopyIcon />}
-        {copied ? "copied" : "copy"}
-      </button>
+    <div className="press bg-paper-raised p-4">
+      <div className="flex items-center justify-between font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft">
+        <span>Inbox // direct reach</span>
+        <span className="inline-flex items-center gap-1.5 text-signal">
+          <span className="h-2 w-2 rounded-full bg-signal" /> Active
+        </span>
+      </div>
+      <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-2 rounded border border-ink bg-paper-raised py-1.5 pl-3 pr-1.5">
+          <a href={`mailto:${config.email}`} className="min-w-0 truncate font-mono text-[14px] text-ink hover:text-vermilion">
+            {config.email}
+          </a>
+          <button
+            type="button"
+            onClick={async () => {
+              await navigator.clipboard.writeText(config.email);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1800);
+            }}
+            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded border border-hairline px-2.5 font-mono text-[12px] hover:border-ink hover:bg-ink hover:text-paper"
+            aria-live="polite"
+          >
+            {copied ? <CheckIcon /> : <CopyIcon />}
+            {copied ? "Copied" : "Copy"}
+          </button>
+        </div>
+        <a href={`mailto:${config.email}`} className="press-interactive inline-flex h-11 shrink-0 items-center justify-center gap-2 bg-vermilion px-5 font-mono text-[13px] text-paper">
+          Email me <ArrowUpRight />
+        </a>
+      </div>
     </div>
   );
 }
@@ -51,27 +64,29 @@ export function LetterForm() {
     }
   }
 
-  const field = "w-full border-0 border-b border-hairline bg-transparent px-0 py-2 text-[16px] text-ink placeholder:text-ink-faint focus:border-vermilion focus:outline-none focus:ring-0";
+  const field = "mt-1 w-full border-0 border-b border-ink/70 bg-transparent px-0 py-2 text-[16px] text-ink placeholder:text-ink-faint focus:border-vermilion focus:outline-none focus:ring-0";
+  const row = "flex items-baseline justify-between font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft";
 
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <label className="block">
-        <span className="label">Name</span>
-        <input name="name" required maxLength={100} autoComplete="name" className={field} />
+        <span className={row}>From (name): <span className="text-[11px] text-ink-faint">[required]</span></span>
+        <input name="name" placeholder="Jane Doe" required maxLength={100} autoComplete="name" className={field} />
       </label>
       <label className="block">
-        <span className="label">Email</span>
-        <input name="email" type="email" required maxLength={200} autoComplete="email" className={field} />
+        <span className={row}>Return address (email): <span className="text-[11px] text-ink-faint">[required]</span></span>
+        <input name="email" placeholder="jane@example.com" type="email" required maxLength={200} autoComplete="email" className={field} />
       </label>
       <label className="block">
-        <span className="label">Message</span>
+        <span className={row}>Dispatch message: <span className="text-[11px] text-ink-faint">[ruled paper]</span></span>
         <textarea
           name="message"
           required
           minLength={5}
           maxLength={5000}
           rows={6}
-          className={`${field} resize-y bg-[repeating-linear-gradient(transparent,transparent_31px,rgb(var(--hairline))_31px,rgb(var(--hairline))_32px)] leading-8`}
+          placeholder="Greetings, I came across your portfolio..."
+          className={`mt-2 w-full resize-y rounded border border-ink/70 bg-paper-raised px-3 py-0 text-[16px] text-ink placeholder:text-ink-faint focus:border-vermilion focus:outline-none focus:ring-0 bg-[repeating-linear-gradient(transparent,transparent_31px,rgb(var(--hairline))_31px,rgb(var(--hairline))_32px)] leading-8`}
         />
       </label>
       {/* Honeypot, hidden from people */}
