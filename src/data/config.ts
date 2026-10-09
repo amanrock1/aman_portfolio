@@ -16,7 +16,7 @@ export const config = {
   ogImage: "/assets/seo/og-portfolio-2026.jpg",
   ogImageAlt: "Aman Kumar Prabhat, full-stack and AI developer, with screenshots of OpenSource Buddy, 360 Campus Tour and VoxTube",
   email: "amanprabhat438@gmail.com",
-  resume: "/Aman_Kumar_Resume_Update.pdf",
+  resume: "/Aman_Kumar_Prabhat_Resume.pdf",
   handles: {
     github: "amanrock1",
     leetcode: "leetcode_kumar",

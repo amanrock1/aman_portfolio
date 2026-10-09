@@ -21,7 +21,7 @@ The owner asked for an **interactive, live system-design section on every projec
 1. **Never invent content.** No awards, rankings, metrics, user counts, latencies, file sizes, versions, job experience, locations or "verified" badges unless the fact is in `src/data/config.ts`, `src/content/*`, or fetched live.
    - The old site faked its coding stats with hard-coded numbers and a random heatmap. Never repeat that. When data is missing, show "unavailable" or a labelled placeholder such as `[ screenshot ]`.
    - Design tools (Stitch) repeatedly invented "Hackathon winner", "180ms", "100% verified metrics". Treat any generated copy as suspect.
-   - Sources of truth: the resume (`public/Aman_Kumar_Resume_Update.pdf`), the READMEs of the repos under `amanrock1`, and the platforms' public profiles.
+   - Sources of truth: the resume (`public/Aman_Kumar_Prabhat_Resume.pdf`), the READMEs of the repos under `amanrock1`, and the platforms' public profiles.
 2. **Light theme only.** A dark theme was built and tested on 2026-10-01 and the owner **rejected it**. Do not add dark mode or a theme toggle. (Colours are still CSS variables, which is harmless.)
 3. **Phone-first AND full-width desktop.** Both widths matter. The owner rejected desktop layouts that were a narrow phone column with empty sides.
 4. **Don't push or commit unless asked.** The owner tests on localhost first. Pushing to `main` changes the live site.
